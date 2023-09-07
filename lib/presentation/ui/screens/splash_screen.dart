@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../utility/image_assets.dart';
+import './home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -44,6 +45,14 @@ class _SplashScreenState extends State<SplashScreen> {
   void _navigateToNextScreen() {
     Future.delayed(
       const Duration(seconds: 3),
-    ).then((value) {});
+    ).then((value) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (cntxt) => const HomeScreen(),
+        ),
+        (route) => false,
+      );
+    });
   }
 }
