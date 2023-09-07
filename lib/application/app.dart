@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:get/get.dart';
+
 import '../presentation/ui/screens/splash_screen.dart';
 import '../presentation/ui/utility/app_colors.dart';
 
@@ -8,7 +10,7 @@ class CraftBay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'CraftBay',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

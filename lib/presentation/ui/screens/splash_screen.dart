@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 import '../utility/image_assets.dart';
 import './home_screen.dart';
@@ -46,13 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 3),
     ).then((value) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (cntxt) => const HomeScreen(),
-        ),
-        (route) => false,
-      );
+      Get.offAll(const HomeScreen());
     });
   }
 }
