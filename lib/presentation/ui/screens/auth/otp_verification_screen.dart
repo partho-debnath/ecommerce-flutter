@@ -82,6 +82,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     log("Allowing to paste $text");
                     return true;
                   },
+                  validator: (String? otp) {
+                    if (otp?.isEmpty ?? true) {
+                      return 'Enter The OTP.';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(
                   height: 24,
