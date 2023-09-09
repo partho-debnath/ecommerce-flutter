@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -15,6 +16,22 @@ class OtpVerificationScreen extends StatefulWidget {
 }
 
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
+  late Timer _timer;
+  final int _timerLimitInSeconds = 120;
+  late int _seconds;
+
+  @override
+  void initState() {
+    super.initState();
+    setTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -111,16 +128,22 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                           color: theme.primaryColor,
                           fontWeight: FontWeight.bold,
                         ),
-                        text: '120s',
+                        text: '${_seconds}s',
                       ),
                     ],
                   ),
                 ),
                 TextButton(
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.grey,
+                    foregroundColor: _seconds == _timerLimitInSeconds
+                        ? theme.primaryColor
+                        : Colors.grey,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_seconds == _timerLimitInSeconds) {
+                      setTimer();
+                    }
+                  },
                   child: const Text('Resend Code'),
                 ),
               ],
@@ -129,5 +152,23 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         ),
       ),
     );
+  }
+
+  void setTimer() {
+    _seconds = _timerLimitInSeconds;
+    if (mounted) {
+      setState(() {});
+    }
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_seconds == 0) {
+        timer.cancel();
+        _seconds = _timerLimitInSeconds;
+      } else {
+        _seconds -= 1;
+      }
+      if (mounted) {
+        setState(() {});
+      }
+    });
   }
 }
