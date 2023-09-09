@@ -32,6 +32,12 @@ class CraftBay extends StatelessWidget {
             ),
           ),
         ),
+        inputDecorationTheme: InputDecorationTheme(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
       ),
       home: const SplashScreen(),
     );
