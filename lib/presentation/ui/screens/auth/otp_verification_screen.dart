@@ -16,6 +16,7 @@ class OtpVerificationScreen extends StatefulWidget {
 }
 
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late Timer _timer;
   final int _timerLimitInSeconds = 120;
   late int _seconds;
@@ -68,49 +69,59 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 const SizedBox(
                   height: 24,
                 ),
-                PinCodeTextField(
-                  appContext: context,
-                  length: 4,
-                  obscureText: false,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  animationType: AnimationType.fade,
-                  pinTheme: PinTheme(
-                    shape: PinCodeFieldShape.box,
-                    borderRadius: BorderRadius.circular(5),
-                    fieldHeight: 50,
-                    fieldWidth: 50,
-                    selectedFillColor: Colors.white,
-                    selectedColor: Colors.green,
-                    activeFillColor: Colors.white,
-                    activeColor: Theme.of(context).primaryColor,
-                    inactiveFillColor: Colors.white,
-                    inactiveColor: Theme.of(context).primaryColor,
+                Form(
+                  key: _formKey,
+                  child: PinCodeTextField(
+                    appContext: context,
+                    length: 4,
+                    autoDisposeControllers: false,
+                    obscureText: false,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    animationType: AnimationType.fade,
+                    pinTheme: PinTheme(
+                      shape: PinCodeFieldShape.box,
+                      borderRadius: BorderRadius.circular(5),
+                      fieldHeight: 50,
+                      fieldWidth: 50,
+                      selectedFillColor: Colors.white,
+                      selectedColor: Colors.green,
+                      activeFillColor: Colors.white,
+                      activeColor: Theme.of(context).primaryColor,
+                      inactiveFillColor: Colors.white,
+                      inactiveColor: Theme.of(context).primaryColor,
+                    ),
+                    animationDuration: const Duration(milliseconds: 300),
+                    enableActiveFill: true,
+                    keyboardType: TextInputType.number,
+                    onCompleted: (v) {
+                      log("Completed");
+                    },
+                    onChanged: (value) {
+                      log('on $value');
+                    },
+                    beforeTextPaste: (text) {
+                      log("Allowing to paste $text");
+                      return true;
+                    },
+                    validator: (String? otp) {
+                      if (otp?.isEmpty ?? true) {
+                        return 'Enter The OTP Code.';
+                      }
+                      return null;
+                    },
                   ),
-                  animationDuration: const Duration(milliseconds: 300),
-                  enableActiveFill: true,
-                  keyboardType: TextInputType.number,
-                  onCompleted: (v) {
-                    log("Completed");
-                  },
-                  onChanged: (value) {
-                    log('on $value');
-                  },
-                  beforeTextPaste: (text) {
-                    log("Allowing to paste $text");
-                    return true;
-                  },
-                  validator: (String? otp) {
-                    if (otp?.isEmpty ?? true) {
-                      return 'Enter The OTP.';
-                    }
-                    return null;
-                  },
                 ),
                 const SizedBox(
                   height: 24,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      log('ok');
+                    } else {
+                      log('Not Ok');
+                    }
+                  },
                   child: const Text('Next'),
                 ),
                 const SizedBox(

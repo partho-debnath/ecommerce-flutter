@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 
 import '../utility/image_assets.dart';
 import './home_screen.dart';
-import './auth/otp_verification_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -48,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 3),
     ).then((value) {
-      Get.offAll(const OtpVerificationScreen());
+      Get.offAll(const HomeScreen());
     });
   }
 }
