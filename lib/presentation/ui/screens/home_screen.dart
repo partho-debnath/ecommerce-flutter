@@ -6,6 +6,7 @@ import '../utility/image_assets.dart';
 import '../widgets/home/categories.dart';
 import '../widgets/home/circular_icon_button.dart';
 import '../widgets/home/home_slider.dart';
+import '../widgets/product.dart';
 import '../widgets/section_header.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -77,6 +78,51 @@ class HomeScreen extends StatelessWidget {
                 title: 'Popular',
                 onTap: () {},
                 theme: theme,
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: 172,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 10,
+                  itemBuilder: (cntxt, index) {
+                    return Product(theme: theme);
+                  },
+                ),
+              ),
+              const SizedBox(height: 10),
+              SectionHeader(
+                title: 'Special',
+                onTap: () {},
+                theme: theme,
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: 172,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 10,
+                  itemBuilder: (cntxt, index) {
+                    return Product(theme: theme);
+                  },
+                ),
+              ),
+              const SizedBox(height: 10),
+              SectionHeader(
+                title: 'New',
+                onTap: () {},
+                theme: theme,
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: 172,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 10,
+                  itemBuilder: (cntxt, index) {
+                    return Product(theme: theme);
+                  },
+                ),
               ),
             ],
           ),

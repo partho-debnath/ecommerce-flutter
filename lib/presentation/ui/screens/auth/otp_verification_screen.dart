@@ -19,7 +19,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late ValueNotifier<int> _remainingTimeInSeconds;
   late Timer _timer;
-  final int _timerLimitInSeconds = 10;
+  final int _timerLimitInSeconds = 120;
 
   @override
   void initState() {
