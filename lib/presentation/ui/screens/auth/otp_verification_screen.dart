@@ -17,9 +17,9 @@ class OtpVerificationScreen extends StatefulWidget {
 
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late ValueNotifier<int> _remainingTimeInSeconds;
   late Timer _timer;
-  final int _timerLimitInSeconds = 120;
-  late int _seconds;
+  final int _timerLimitInSeconds = 10;
 
   @override
   void initState() {
@@ -127,35 +127,45 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 const SizedBox(
                   height: 24,
                 ),
-                RichText(
-                  text: TextSpan(
-                    style: theme.textTheme.displaySmall?.copyWith(
-                      fontSize: 17,
-                    ),
-                    children: <TextSpan>[
-                      const TextSpan(text: 'This code will expired in '),
-                      TextSpan(
-                        style: TextStyle(
-                          color: theme.primaryColor,
-                          fontWeight: FontWeight.bold,
+                ValueListenableBuilder(
+                  valueListenable: _remainingTimeInSeconds,
+                  builder: (cntxt, second, child) {
+                    return Column(
+                      children: <Widget>[
+                        RichText(
+                          text: TextSpan(
+                            style: theme.textTheme.displaySmall?.copyWith(
+                              fontSize: 17,
+                            ),
+                            children: <TextSpan>[
+                              const TextSpan(
+                                  text: 'This code will expired in '),
+                              TextSpan(
+                                style: TextStyle(
+                                  color: theme.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                text: '${second}s',
+                              ),
+                            ],
+                          ),
                         ),
-                        text: '${_seconds}s',
-                      ),
-                    ],
-                  ),
-                ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    foregroundColor: _seconds == _timerLimitInSeconds
-                        ? theme.primaryColor
-                        : Colors.grey,
-                  ),
-                  onPressed: () {
-                    if (_seconds == _timerLimitInSeconds) {
-                      setTimer();
-                    }
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            foregroundColor: second == _timerLimitInSeconds
+                                ? theme.primaryColor
+                                : Colors.grey,
+                          ),
+                          onPressed: () {
+                            if (second == _timerLimitInSeconds) {
+                              setTimer();
+                            }
+                          },
+                          child: const Text('Resend Code'),
+                        ),
+                      ],
+                    );
                   },
-                  child: const Text('Resend Code'),
                 ),
               ],
             ),
@@ -166,19 +176,14 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   }
 
   void setTimer() {
-    _seconds = _timerLimitInSeconds;
-    if (mounted) {
-      setState(() {});
-    }
+    _remainingTimeInSeconds = ValueNotifier(_timerLimitInSeconds);
+    setState(() {});
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_seconds == 0) {
+      if (_remainingTimeInSeconds.value == 0) {
         timer.cancel();
-        _seconds = _timerLimitInSeconds;
+        _remainingTimeInSeconds.value = _timerLimitInSeconds;
       } else {
-        _seconds -= 1;
-      }
-      if (mounted) {
-        setState(() {});
+        _remainingTimeInSeconds.value -= 1;
       }
     });
   }
