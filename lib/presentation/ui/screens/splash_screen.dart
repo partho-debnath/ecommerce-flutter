@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../utility/image_assets.dart';
-import './home_screen.dart';
+import './main_buttom_nav_bar.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 3),
     ).then((value) {
-      Get.offAll(const HomeScreen());
+      Get.offAll(const MainButtomNavBarScreen());
     });
   }
 }
