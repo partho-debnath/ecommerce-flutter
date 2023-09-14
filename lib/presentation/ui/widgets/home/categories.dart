@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../screens/product_list_screen.dart';
+import '../category_item.dart';
 
 class Categories extends StatelessWidget {
   const Categories({
@@ -19,50 +23,16 @@ class Categories extends StatelessWidget {
           return CategoryItem(
             categoryName: 'Name $index',
             theme: theme,
+            onTap: () {
+              Get.to(
+                ProductListScreen(
+                  categoryTitle: 'Categories $index',
+                ),
+              );
+            },
           );
         },
       ),
-    );
-  }
-}
-
-class CategoryItem extends StatelessWidget {
-  final ThemeData theme;
-  final String categoryName;
-  const CategoryItem({
-    super.key,
-    required this.theme,
-    required this.categoryName,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Container(
-          height: 84.0,
-          width: 84.0,
-          margin: const EdgeInsets.all(5.0),
-          padding: const EdgeInsets.all(10.0),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: theme.primaryColor.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          child: const FlutterLogo(
-            size: 50,
-            textColor: Colors.red,
-          ),
-        ),
-        Text(
-          categoryName,
-          style: TextStyle(
-            color: theme.primaryColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
     );
   }
 }

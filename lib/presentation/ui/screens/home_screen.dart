@@ -72,7 +72,9 @@ class HomeScreen extends StatelessWidget {
                 theme: theme,
               ),
               const SizedBox(height: 10),
-              Categories(theme: theme),
+              Categories(
+                theme: theme,
+              ),
               const SizedBox(height: 10),
               SectionHeader(
                 title: 'Popular',
