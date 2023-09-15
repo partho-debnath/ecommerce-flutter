@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 import '../utility/image_assets.dart';
 import '../widgets/home/categories.dart';
@@ -8,6 +9,7 @@ import '../widgets/home/circular_icon_button.dart';
 import '../widgets/home/home_slider.dart';
 import '../widgets/product.dart';
 import '../widgets/section_header.dart';
+import './category_list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -68,7 +70,9 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 10),
               SectionHeader(
                 title: 'All Categories',
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => const CategoryListScreen());
+                },
                 theme: theme,
               ),
               const SizedBox(height: 10),

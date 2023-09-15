@@ -5,12 +5,11 @@ import '../../screens/product_list_screen.dart';
 import '../category_item.dart';
 
 class Categories extends StatelessWidget {
+  final ThemeData theme;
   const Categories({
     super.key,
     required this.theme,
   });
-
-  final ThemeData theme;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class Categories extends StatelessWidget {
             theme: theme,
             onTap: () {
               Get.to(
-                ProductListScreen(
+                () => ProductListScreen(
                   categoryTitle: 'Categories $index',
                 ),
               );

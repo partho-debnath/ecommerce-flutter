@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/product.dart';
+import '../widgets/category_item.dart';
 
-class ProductListScreen extends StatelessWidget {
-  final String categoryTitle;
-  const ProductListScreen({
-    super.key,
-    required this.categoryTitle,
-  });
+class CategoryListScreen extends StatelessWidget {
+  const CategoryListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,28 +11,27 @@ class ProductListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 1,
+        elevation: 2,
         leading: const BackButton(color: Colors.black),
-        title: Text(
-          categoryTitle,
-          style: const TextStyle(
-            color: Colors.black,
-          ),
+        title: const Text(
+          'Categories',
+          style: TextStyle(color: Colors.black),
         ),
       ),
       body: GridView.builder(
         padding: const EdgeInsets.all(5.0),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 5,
-          mainAxisSpacing: 5,
-          childAspectRatio: 2.3 / 3,
+          crossAxisCount: 4,
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 16,
         ),
-        itemCount: 14,
+        itemCount: 10,
         itemBuilder: (cntxt, index) {
           return FittedBox(
-            child: Product(
+            child: CategoryItem(
+              categoryName: 'Category Name',
               theme: theme,
+              onTap: () {},
             ),
           );
         },
