@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './category_list_screen.dart';
 import './home_screen.dart';
+import './wish_list_screen.dart';
 
 class MainButtomNavBarScreen extends StatefulWidget {
   const MainButtomNavBarScreen({super.key});
@@ -16,7 +17,7 @@ class _MainButtomNavBarScreenState extends State<MainButtomNavBarScreen> {
     HomeScreen(),
     CategoryListScreen(),
     HomeScreen(),
-    HomeScreen(),
+    WishListScreen(),
   ];
 
   @override
