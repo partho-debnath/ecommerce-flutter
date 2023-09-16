@@ -20,12 +20,12 @@ class Categories extends StatelessWidget {
         itemCount: 10,
         itemBuilder: (context, index) {
           return CategoryItem(
-            categoryName: 'Name $index',
+            categoryName: 'Category $index',
             theme: theme,
             onTap: () {
               Get.to(
                 () => ProductListScreen(
-                  categoryTitle: 'Categories $index',
+                  categoryTitle: 'Category Name$index',
                 ),
               );
             },

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:get/get.dart';
+
 import '../widgets/category_item.dart';
+import './product_list_screen.dart';
 
 class CategoryListScreen extends StatelessWidget {
   const CategoryListScreen({super.key});
@@ -29,9 +32,12 @@ class CategoryListScreen extends StatelessWidget {
         itemBuilder: (cntxt, index) {
           return FittedBox(
             child: CategoryItem(
-              categoryName: 'Category Name',
+              categoryName: 'Category Name$index',
               theme: theme,
-              onTap: () {},
+              onTap: () {
+                Get.to(() =>
+                    ProductListScreen(categoryTitle: 'Category Name$index'));
+              },
             ),
           );
         },
