@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../presentation/ui/screens/splash_screen.dart';
 import '../presentation/ui/utility/app_colors.dart';
+import './state_holder_binder.dart';
 
 class CraftBay extends StatelessWidget {
   const CraftBay({super.key});
@@ -11,6 +12,7 @@ class CraftBay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      initialBinding: StateHolderBinder(),
       title: 'CraftBay',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
