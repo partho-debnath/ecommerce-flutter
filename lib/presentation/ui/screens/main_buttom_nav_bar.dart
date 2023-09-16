@@ -44,7 +44,11 @@ class _MainButtomNavBarScreenState extends State<MainButtomNavBarScreen> {
           BottomNavigationBarItem(
             label: 'Categories',
             tooltip: 'Categories',
-            icon: Icon(Icons.category),
+            icon: Icon(Icons.category_outlined),
+            activeIcon: Icon(
+              Icons.category,
+              color: Colors.green,
+            ),
           ),
           BottomNavigationBarItem(
             label: 'Cart',
@@ -55,6 +59,10 @@ class _MainButtomNavBarScreenState extends State<MainButtomNavBarScreen> {
             label: 'Wish',
             tooltip: 'Wish',
             icon: Icon(
+              Icons.favorite_border,
+              color: Colors.red,
+            ),
+            activeIcon: Icon(
               Icons.favorite,
               color: Colors.red,
             ),

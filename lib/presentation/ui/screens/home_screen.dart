@@ -10,6 +10,7 @@ import '../widgets/home/home_slider.dart';
 import '../widgets/product.dart';
 import '../widgets/section_header.dart';
 import './category_list_screen.dart';
+import 'product_list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -71,7 +72,9 @@ class HomeScreen extends StatelessWidget {
               SectionHeader(
                 title: 'All Categories',
                 onTap: () {
-                  Get.to(() => const CategoryListScreen());
+                  Get.to(
+                    () => const CategoryListScreen(),
+                  );
                 },
                 theme: theme,
               ),
@@ -82,7 +85,13 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 10),
               SectionHeader(
                 title: 'Popular',
-                onTap: () {},
+                onTap: () {
+                  Get.to(
+                    () => const ProductListScreen(
+                      categoryTitle: 'Popular Products',
+                    ),
+                  );
+                },
                 theme: theme,
               ),
               const SizedBox(height: 10),
@@ -99,7 +108,13 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 10),
               SectionHeader(
                 title: 'Special',
-                onTap: () {},
+                onTap: () {
+                  Get.to(
+                    () => const ProductListScreen(
+                      categoryTitle: 'Special Products',
+                    ),
+                  );
+                },
                 theme: theme,
               ),
               const SizedBox(height: 10),
@@ -116,7 +131,13 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 10),
               SectionHeader(
                 title: 'New',
-                onTap: () {},
+                onTap: () {
+                  Get.to(
+                    () => const ProductListScreen(
+                      categoryTitle: 'New Products',
+                    ),
+                  );
+                },
                 theme: theme,
               ),
               const SizedBox(height: 10),

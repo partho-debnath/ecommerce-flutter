@@ -35,8 +35,9 @@ class CategoryListScreen extends StatelessWidget {
               categoryName: 'Category Name$index',
               theme: theme,
               onTap: () {
-                Get.to(() =>
-                    ProductListScreen(categoryTitle: 'Category Name$index'));
+                Get.to(
+                  () => ProductListScreen(categoryTitle: 'Category Name$index'),
+                );
               },
             ),
           );
