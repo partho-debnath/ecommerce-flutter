@@ -14,7 +14,7 @@ class CategoryListScreen extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return WillPopScope(
       onWillPop: () async {
-        Get.find<MainBottomNavController>().goToHomeScreen();
+        Get.find<MainBottomNavController>().backToHomeScreen();
         return false;
       },
       child: Scaffold(
@@ -23,7 +23,7 @@ class CategoryListScreen extends StatelessWidget {
           elevation: 2,
           leading: IconButton(
             onPressed: () {
-              Get.find<MainBottomNavController>().goToHomeScreen();
+              Get.find<MainBottomNavController>().backToHomeScreen();
             },
             icon: const Icon(
               Icons.arrow_back,

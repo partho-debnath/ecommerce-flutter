@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../state_holders/main_bottom_nav_controller.dart';
 import '../utility/image_assets.dart';
 import '../widgets/home/categories.dart';
 import '../widgets/home/circular_icon_button.dart';
 import '../widgets/home/home_slider.dart';
 import '../widgets/product.dart';
 import '../widgets/section_header.dart';
-import './category_list_screen.dart';
 import 'product_list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -72,9 +72,7 @@ class HomeScreen extends StatelessWidget {
               SectionHeader(
                 title: 'All Categories',
                 onTap: () {
-                  Get.to(
-                    () => const CategoryListScreen(),
-                  );
+                  Get.find<MainBottomNavController>().changeScreen(1);
                 },
                 theme: theme,
               ),
