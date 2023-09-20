@@ -2,10 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
+import 'package:get/get.dart';
+
 import '../widgets/product_color_selector.dart';
 import '../widgets/product_image_slider.dart';
 import '../widgets/product_size_selector.dart';
 import '../widgets/stepper_counter.dart';
+import './review_screen.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({super.key});
@@ -95,7 +98,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 children: <Widget>[
                   const Expanded(
                     child: Text(
-                      'Adddidas Shoe KJHg232 - Black Edition.',
+                      'Addidas Shoe KJHg232 - Black Edition.',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
@@ -172,7 +175,9 @@ class ProductDetailsScreen extends StatelessWidget {
           ],
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.to(() => const ReviewScreen());
+          },
           child: Text(
             'Review',
             style: TextStyle(
