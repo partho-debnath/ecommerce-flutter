@@ -20,10 +20,10 @@ class WishListScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 2,
-          leading: const BackButton(color: Colors.black),
+          leading: const BackButton(color: Colors.black54),
           title: const Text(
             'Wishlist',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.black54),
           ),
         ),
         body: GridView.builder(

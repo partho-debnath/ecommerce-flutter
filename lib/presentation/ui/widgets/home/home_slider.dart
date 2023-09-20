@@ -16,6 +16,8 @@ class _HomeSliderState extends State<HomeSlider> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     return Column(
       children: <Widget>[
         CarouselSlider(
@@ -37,7 +39,7 @@ class _HomeSliderState extends State<HomeSlider> {
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 5.0),
                     decoration: BoxDecoration(
-                      color: Colors.amber,
+                      color: theme.primaryColor.withOpacity(0.15),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     alignment: Alignment.center,

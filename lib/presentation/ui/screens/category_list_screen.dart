@@ -32,7 +32,7 @@ class CategoryListScreen extends StatelessWidget {
           ),
           title: const Text(
             'Categories',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.black54),
           ),
         ),
         body: GridView.builder(
