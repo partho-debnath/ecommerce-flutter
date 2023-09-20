@@ -5,6 +5,7 @@ import '../../state_holders/main_bottom_nav_controller.dart';
 import './category_list_screen.dart';
 import './home_screen.dart';
 import './wish_list_screen.dart';
+import './cart_screen.dart';
 
 class MainButtomNavBarScreen extends StatefulWidget {
   const MainButtomNavBarScreen({super.key});
@@ -17,7 +18,7 @@ class _MainButtomNavBarScreenState extends State<MainButtomNavBarScreen> {
   final List<Widget> _screens = const <Widget>[
     HomeScreen(),
     CategoryListScreen(),
-    HomeScreen(),
+    CartScreen(),
     WishListScreen(),
   ];
 
