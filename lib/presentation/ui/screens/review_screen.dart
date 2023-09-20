@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import './create_review_screen.dart';
 
 class ReviewScreen extends StatelessWidget {
   const ReviewScreen({super.key});
@@ -49,7 +52,9 @@ class ReviewScreen extends StatelessWidget {
                 ),
                 FloatingActionButton(
                   backgroundColor: theme.primaryColor,
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(() => const CreateReviewScreen());
+                  },
                   child: const Icon(Icons.add),
                 )
               ],
