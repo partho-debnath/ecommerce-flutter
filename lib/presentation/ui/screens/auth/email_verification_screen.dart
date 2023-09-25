@@ -117,7 +117,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     final bool isVarified = await emailVerificationController
         .verifyEmail(emailController.text.trim());
     if (isVarified) {
-      Get.to(() => const OtpVerificationScreen());
+      Get.to(() => OtpVerificationScreen(email: emailController.text.trim()));
     } else {
       Get.snackbar(
         'Warning!',

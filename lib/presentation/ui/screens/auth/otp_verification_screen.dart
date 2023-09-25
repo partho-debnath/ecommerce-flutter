@@ -4,12 +4,16 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../../state_holders/otp_verification_controller.dart';
 import '../../utility/image_assets.dart';
+import './complete_profile_screen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
-  const OtpVerificationScreen({super.key});
+  final String email;
+  const OtpVerificationScreen({super.key, required this.email});
 
   @override
   State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
@@ -17,6 +21,7 @@ class OtpVerificationScreen extends StatefulWidget {
 
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController otpController = TextEditingController();
   late ValueNotifier<int> _remainingTimeInSeconds;
   late Timer _timer;
   final int _timerLimitInSeconds = 120;
@@ -29,6 +34,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   @override
   void dispose() {
+    otpController.dispose();
     _timer.cancel();
     super.dispose();
   }
@@ -72,6 +78,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 Form(
                   key: _formKey,
                   child: PinCodeTextField(
+                    controller: otpController,
                     appContext: context,
                     length: 4,
                     autoDisposeControllers: false,
@@ -114,15 +121,23 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 const SizedBox(
                   height: 24,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      log('ok');
-                    } else {
-                      log('Not Ok');
+                GetBuilder<OtpVerificationController>(
+                  builder: (otpVerificationController) {
+                    if (otpVerificationController.otpVerificationInProgress ==
+                        true) {
+                      return const CircularProgressIndicator();
                     }
+                    return ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate() == false) {
+                          return;
+                        } else {
+                          verifyOtp(otpVerificationController);
+                        }
+                      },
+                      child: const Text('Next'),
+                    );
                   },
-                  child: const Text('Next'),
                 ),
                 const SizedBox(
                   height: 24,
@@ -173,6 +188,24 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> verifyOtp(
+      OtpVerificationController otpVerificationController) async {
+    final bool isVarified = await otpVerificationController.verifyOtp(
+      email: widget.email,
+      otp: otpController.text.trim(),
+    );
+
+    if (isVarified) {
+      Get.to(() => const CompleteProfileScreen());
+    } else {
+      Get.snackbar(
+        'Warning!',
+        'Wrong OTP.',
+        backgroundColor: Colors.red.withOpacity(0.8),
+      );
+    }
   }
 
   void setTimer() {
