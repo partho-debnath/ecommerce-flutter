@@ -1,10 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
+import '../../../state_holders/email_verification_controller.dart';
 import '../../utility/image_assets.dart';
+import 'otp_verification_screen.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
   const EmailVerificationScreen({super.key});
@@ -16,6 +17,13 @@ class EmailVerificationScreen extends StatefulWidget {
 
 class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,21 +66,19 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   child: Column(
                     children: <TextFormField>[
                       TextFormField(
+                        controller: emailController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.email),
                           prefixIconColor: theme.primaryColor,
-                          hintText: 'E-mail Address',
+                          hintText: 'E-mail',
                         ),
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.done,
                         validator: (String? email) {
                           if (email?.isEmpty ?? true) {
-                            return 'Please Enter Your Email.';
-                          } else if (RegExp(
-                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(email!) ==
-                              false) {
-                            return 'Please Enter a Valid Email.';
+                            return 'Enter your email.';
+                          } else if (email!.isEmail == false) {
+                            return 'Please enter a valid email.';
                           }
                           return null;
                         },
@@ -81,14 +87,22 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate() == false) {
-                      return;
+                GetBuilder<EmailVerificationController>(
+                  builder: (emailVerificationController) {
+                    if (emailVerificationController
+                        .emailVerificationInProgress) {
+                      return const CircularProgressIndicator();
                     }
-                    log('-----Ok------');
+                    return ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate() == false) {
+                          return;
+                        }
+                        verifyEmail(emailVerificationController);
+                      },
+                      child: const Text('Next'),
+                    );
                   },
-                  child: const Text('Next'),
                 ),
               ],
             ),
@@ -96,5 +110,20 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> verifyEmail(
+      EmailVerificationController emailVerificationController) async {
+    final bool isVarified = await emailVerificationController
+        .verifyEmail(emailController.text.trim());
+    if (isVarified) {
+      Get.to(() => const OtpVerificationScreen());
+    } else {
+      Get.snackbar(
+        'Warning!',
+        'Email verification failed! Try again',
+        backgroundColor: Colors.red.withOpacity(0.8),
+      );
+    }
   }
 }
