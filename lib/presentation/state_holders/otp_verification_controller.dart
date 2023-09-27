@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../data/models/network_response.dart';
 import '../../data/services/network_caller.dart';
 import '../../data/utility/urls.dart';
+import './auth_controller.dart';
 
 class OtpVerificationController extends GetxController {
   bool _otpVerificationInProgress = false;
@@ -20,9 +21,11 @@ class OtpVerificationController extends GetxController {
     update();
 
     if (response.isSuccess) {
-      _message = response.responseJson?['data'] ?? '';
+      await AuthController.setAccessToken(response.responseJson!['data']);
       return true;
     } else {
+      _message = 'OTP verification failed!';
+      update();
       return false;
     }
   }

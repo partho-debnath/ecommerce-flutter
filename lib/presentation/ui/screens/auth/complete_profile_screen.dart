@@ -15,6 +15,22 @@ class CompleteProfileScreen extends StatefulWidget {
 
 class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lstNameController = TextEditingController();
+  final TextEditingController mobileNumberController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
+  final TextEditingController shippingAddressController =
+      TextEditingController();
+
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lstNameController.dispose();
+    mobileNumberController.dispose();
+    cityController.dispose();
+    shippingAddressController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +69,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
+                        controller: firstNameController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.person),
                           prefixIconColor: theme.primaryColor,
@@ -69,6 +86,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                       ),
                       const SizedBox(height: 15),
                       TextFormField(
+                        controller: lstNameController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.person),
                           prefixIconColor: theme.primaryColor,
@@ -85,6 +103,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                       ),
                       const SizedBox(height: 15),
                       TextFormField(
+                        controller: mobileNumberController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.phone),
                           prefixIconColor: theme.primaryColor,
@@ -101,6 +120,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                       ),
                       const SizedBox(height: 15),
                       TextFormField(
+                        controller: cityController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.location_city),
                           prefixIconColor: theme.primaryColor,
@@ -117,6 +137,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                       ),
                       const SizedBox(height: 15),
                       TextFormField(
+                        controller: shippingAddressController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.local_shipping),
                           prefixIconColor: theme.primaryColor,

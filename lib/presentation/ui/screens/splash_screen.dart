@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../state_holders/auth_controller.dart';
 import '../utility/image_assets.dart';
 import './auth/email_verification_screen.dart';
+import './main_buttom_nav_bar.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -43,11 +45,16 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  void _navigateToNextScreen() {
+  Future<void> _navigateToNextScreen() async {
+    await AuthController.readAccessToken();
     Future.delayed(
       const Duration(seconds: 3),
     ).then((value) {
-      Get.offAll(() => const EmailVerificationScreen());
+      Get.offAll(
+        () => AuthController.isLoggedIn
+            ? const MainButtomNavBarScreen()
+            : const EmailVerificationScreen(),
+      );
     });
   }
 }
