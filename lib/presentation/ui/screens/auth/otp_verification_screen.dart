@@ -13,7 +13,12 @@ import './complete_profile_screen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   final String email;
-  const OtpVerificationScreen({super.key, required this.email});
+  final Future<bool> Function() onPressResendOtp;
+  const OtpVerificationScreen({
+    super.key,
+    required this.email,
+    required this.onPressResendOtp,
+  });
 
   @override
   State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
@@ -171,9 +176,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                 ? theme.primaryColor
                                 : Colors.grey,
                           ),
-                          onPressed: () {
+                          onPressed: () async {
                             if (second == _timerLimitInSeconds) {
                               setTimer();
+                              await resendOtp();
                             }
                           },
                           child: const Text('Resend Code'),
@@ -188,6 +194,17 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> resendOtp() async {
+    bool isResendOtp = await widget.onPressResendOtp();
+    if (isResendOtp) {
+      Get.snackbar(
+        'Success',
+        'OTP Sent to this ${widget.email} email.',
+        backgroundColor: Colors.green,
+      );
+    }
   }
 
   Future<void> verifyOtp(

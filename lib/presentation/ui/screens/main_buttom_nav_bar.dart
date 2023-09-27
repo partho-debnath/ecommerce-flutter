@@ -23,6 +23,11 @@ class _MainButtomNavBarScreenState extends State<MainButtomNavBarScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return GetBuilder<MainBottomNavController>(
