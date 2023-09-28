@@ -1,16 +1,20 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../state_holders/main_bottom_nav_controller.dart';
+import '../../state_holders/product_slider_controller.dart';
 import '../utility/image_assets.dart';
 import '../widgets/home/categories.dart';
 import '../widgets/home/circular_icon_button.dart';
 import '../widgets/home/home_slider.dart';
 import '../widgets/product.dart';
 import '../widgets/section_header.dart';
-import 'product_list_screen.dart';
+import './product_list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -67,7 +71,35 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              const HomeSlider(),
+              GetBuilder<ProductSliderController>(
+                builder: (productSliderController) {
+                  log('==');
+                  log(productSliderController.getHomeSlidersInProgress
+                      .toString());
+                  if (productSliderController.getHomeSlidersInProgress ==
+                      true) {
+                    return Shimmer.fromColors(
+                      baseColor: Colors.black,
+                      highlightColor: Colors.grey,
+                      child: Container(
+                        height: 150.0,
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          color: theme.primaryColor.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        // alignment: Alignment.center,
+                      ),
+                    );
+                  }
+                  return HomeSlider(
+                    productSliderModel: productSliderController
+                            .productSliderData.productslidermodel ??
+                        [],
+                  );
+                },
+              ),
               const SizedBox(height: 10),
               SectionHeader(
                 title: 'All Categories',

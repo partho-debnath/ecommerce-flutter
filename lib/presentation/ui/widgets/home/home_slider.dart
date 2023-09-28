@@ -1,11 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../../../../data/models/product_slider_model.dart';
 import '../../utility/app_colors.dart';
 
 class HomeSlider extends StatefulWidget {
-  const HomeSlider({super.key});
+  final List<ProductSliderModel> productSliderModel;
+  const HomeSlider({super.key, required this.productSliderModel});
 
   @override
   State<HomeSlider> createState() => _HomeSliderState();
@@ -31,21 +35,59 @@ class _HomeSliderState extends State<HomeSlider> {
               selectedSlider.value = index;
             },
           ),
-          items: [1, 2, 3, 4, 5].map<Builder>(
-            (i) {
+          items: widget.productSliderModel.map<Builder>(
+            (ProductSliderModel productSliderModel) {
               return Builder(
                 builder: (BuildContext context) {
                   return Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                    padding: const EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
-                      color: theme.primaryColor.withOpacity(0.15),
+                      color: theme.primaryColor.withOpacity(0.7),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      'text $i',
-                      style: const TextStyle(fontSize: 16.0),
+                    // alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Image.network(
+                          productSliderModel.image,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            FittedBox(
+                              child: Text(
+                                productSliderModel.title,
+                                style: const TextStyle(
+                                  fontSize: 16.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: theme.primaryColor,
+                                maximumSize: const Size.fromHeight(30),
+                                minimumSize: const Size(100, 20),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 5,
+                                ),
+                                textStyle: const TextStyle(fontSize: 12),
+                              ),
+                              onPressed: () {
+                                log('${productSliderModel.id}');
+                              },
+                              child: const Text('Buy Now'),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   );
                 },
@@ -61,14 +103,14 @@ class _HomeSliderState extends State<HomeSlider> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ...List<Container>.generate(
-                  5,
+                  widget.productSliderModel.length,
                   (i) => Container(
                     width: 10,
                     height: 10,
                     margin: const EdgeInsets.symmetric(horizontal: 4),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(5),
                       color: i == index ? AppColor.primaryColor : null,
                     ),
                   ),
