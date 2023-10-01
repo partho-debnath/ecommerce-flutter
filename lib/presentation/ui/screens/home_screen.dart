@@ -112,7 +112,7 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 10),
               GetBuilder<CategoryController>(
                 builder: (categoryController) => Categories(
-                  categories: categoryController.categoryModel.data!,
+                  categories: categoryController.categoryModel.data ?? [],
                   theme: theme,
                 ),
               ),
