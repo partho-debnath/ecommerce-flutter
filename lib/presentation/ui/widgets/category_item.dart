@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../../../data/models/category_data.dart';
+
 class CategoryItem extends StatelessWidget {
   final ThemeData theme;
-  final String categoryName;
+  final CategoryData category;
   final VoidCallback onTap;
   const CategoryItem({
     super.key,
     required this.theme,
-    required this.categoryName,
+    required this.category,
     required this.onTap,
   });
 
@@ -30,15 +32,16 @@ class CategoryItem extends StatelessWidget {
                 color: theme.primaryColor.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              child: const FlutterLogo(
-                size: 50,
-                textColor: Colors.red,
+              child: Image.network(
+                category.categoryImg!,
+                width: 90,
+                height: 90,
               ),
             ),
           ),
         ),
         Text(
-          categoryName,
+          category.categoryName!,
           style: TextStyle(
             color: theme.primaryColor,
             fontWeight: FontWeight.bold,

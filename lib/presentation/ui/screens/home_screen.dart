@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../state_holders/category_controller.dart';
 import '../../state_holders/main_bottom_nav_controller.dart';
 import '../../state_holders/product_slider_controller.dart';
 import '../utility/image_assets.dart';
@@ -109,8 +110,11 @@ class HomeScreen extends StatelessWidget {
                 theme: theme,
               ),
               const SizedBox(height: 10),
-              Categories(
-                theme: theme,
+              GetBuilder<CategoryController>(
+                builder: (categoryController) => Categories(
+                  categories: categoryController.categoryModel.data!,
+                  theme: theme,
+                ),
               ),
               const SizedBox(height: 10),
               SectionHeader(

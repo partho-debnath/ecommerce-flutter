@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../state_holders/category_controller.dart';
 import '../../state_holders/main_bottom_nav_controller.dart';
 import '../../state_holders/product_slider_controller.dart';
 import './category_list_screen.dart';
@@ -27,6 +28,7 @@ class _MainButtomNavBarScreenState extends State<MainButtomNavBarScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Get.find<ProductSliderController>().getHomeSlider();
+      Get.find<CategoryController>().getCategory();
     });
     super.initState();
   }

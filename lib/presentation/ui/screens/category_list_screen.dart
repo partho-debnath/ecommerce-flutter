@@ -44,18 +44,19 @@ class CategoryListScreen extends StatelessWidget {
           ),
           itemCount: 10,
           itemBuilder: (cntxt, index) {
-            return FittedBox(
-              child: CategoryItem(
-                categoryName: 'Category Name$index',
-                theme: theme,
-                onTap: () {
-                  Get.to(
-                    () =>
-                        ProductListScreen(categoryTitle: 'Category Name$index'),
-                  );
-                },
-              ),
-            );
+            return Text('dgd');
+            // return FittedBox(
+            //   child: CategoryItem(
+            //     categoryName: 'Category Name$index',
+            //     theme: theme,
+            //     onTap: () {
+            //       Get.to(
+            //         () =>
+            //             ProductListScreen(categoryTitle: 'Category Name$index'),
+            //       );
+            //     },
+            //   ),
+            // );
           },
         ),
       ),
