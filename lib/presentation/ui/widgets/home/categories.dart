@@ -28,7 +28,7 @@ class Categories extends StatelessWidget {
             onTap: () {
               Get.to(
                 () => ProductListScreen(
-                  categoryTitle: 'Category Name$index',
+                  categoryTitle: categories[index].categoryName!,
                 ),
               );
             },

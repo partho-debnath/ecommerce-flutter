@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../state_holders/category_controller.dart';
 import '../../state_holders/main_bottom_nav_controller.dart';
 import '../widgets/category_item.dart';
 import './product_list_screen.dart';
@@ -35,28 +36,33 @@ class CategoryListScreen extends StatelessWidget {
             style: TextStyle(color: Colors.black54),
           ),
         ),
-        body: GridView.builder(
-          padding: const EdgeInsets.all(5.0),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
-          ),
-          itemCount: 10,
-          itemBuilder: (cntxt, index) {
-            return Text('dgd');
-            // return FittedBox(
-            //   child: CategoryItem(
-            //     categoryName: 'Category Name$index',
-            //     theme: theme,
-            //     onTap: () {
-            //       Get.to(
-            //         () =>
-            //             ProductListScreen(categoryTitle: 'Category Name$index'),
-            //       );
-            //     },
-            //   ),
-            // );
+        body: GetBuilder<CategoryController>(
+          builder: (categoryController) {
+            return GridView.builder(
+              padding: const EdgeInsets.all(5.0),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+              ),
+              itemCount: categoryController.categoryModel.data?.length ?? 0,
+              itemBuilder: (cntxt, index) {
+                return FittedBox(
+                  child: CategoryItem(
+                    category: categoryController.categoryModel.data![index],
+                    theme: theme,
+                    onTap: () {
+                      Get.to(
+                        () => ProductListScreen(
+                          categoryTitle: categoryController
+                              .categoryModel.data![index].categoryName!,
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            );
           },
         ),
       ),
