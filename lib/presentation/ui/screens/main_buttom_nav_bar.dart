@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../state_holders/category_controller.dart';
 import '../../state_holders/main_bottom_nav_controller.dart';
-import '../../state_holders/product_controller.dart';
+import '../../state_holders/popular_product_controller.dart';
 import '../../state_holders/product_slider_controller.dart';
 import './category_list_screen.dart';
 import './home_screen.dart';
@@ -30,7 +30,7 @@ class _MainButtomNavBarScreenState extends State<MainButtomNavBarScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Get.find<ProductSliderController>().getHomeSlider();
       Get.find<CategoryController>().getCategory();
-      Get.find<ProductController>().getProduct();
+      Get.find<PopularProductController>().getPopularProduct();
     });
     super.initState();
   }

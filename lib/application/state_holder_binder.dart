@@ -5,7 +5,7 @@ import '../presentation/state_holders/complete_profile_controller.dart';
 import '../presentation/state_holders/email_verification_controller.dart';
 import '../presentation/state_holders/main_bottom_nav_controller.dart';
 import '../presentation/state_holders/otp_verification_controller.dart';
-import '../presentation/state_holders/product_controller.dart';
+import '../presentation/state_holders/popular_product_controller.dart';
 import '../presentation/state_holders/product_slider_controller.dart';
 
 class StateHolderBinder extends Bindings {
@@ -17,6 +17,6 @@ class StateHolderBinder extends Bindings {
     Get.put(CompleteProfileController());
     Get.put(ProductSliderController());
     Get.put(CategoryController());
-    Get.put(ProductController());
+    Get.put(PopularProductController());
   }
 }

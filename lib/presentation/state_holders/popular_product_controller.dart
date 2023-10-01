@@ -5,7 +5,7 @@ import '../../data/models/product_model.dart';
 import '../../data/services/network_caller.dart';
 import '../../data/utility/urls.dart';
 
-class ProductController extends GetxController {
+class PopularProductController extends GetxController {
   ProductModel _productModel = ProductModel();
   String _errorMessage = '';
   bool _getProductIsInProgress = false;
@@ -14,7 +14,7 @@ class ProductController extends GetxController {
   bool get getProductIsInProgress => _getProductIsInProgress;
   ProductModel get productModel => _productModel;
 
-  Future<bool> getProduct() async {
+  Future<bool> getPopularProduct() async {
     _getProductIsInProgress = true;
     update();
 

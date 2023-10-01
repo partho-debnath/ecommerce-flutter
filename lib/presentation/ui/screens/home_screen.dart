@@ -8,7 +8,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../state_holders/category_controller.dart';
 import '../../state_holders/main_bottom_nav_controller.dart';
-import '../../state_holders/product_controller.dart';
+import '../../state_holders/popular_product_controller.dart';
 import '../../state_holders/product_slider_controller.dart';
 import '../utility/image_assets.dart';
 import '../widgets/home/categories.dart';
@@ -151,7 +151,7 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 10),
               SizedBox(
                 height: 172,
-                child: GetBuilder<ProductController>(
+                child: GetBuilder<PopularProductController>(
                   builder: (popularProductController) {
                     return ListView.builder(
                       scrollDirection: Axis.horizontal,
