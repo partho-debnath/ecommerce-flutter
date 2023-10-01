@@ -111,10 +111,32 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               GetBuilder<CategoryController>(
-                builder: (categoryController) => Categories(
-                  categories: categoryController.categoryModel.data ?? [],
-                  theme: theme,
-                ),
+                builder: (categoryController) {
+                  if (categoryController.getCategoryIsInProgress == true) {
+                    return SizedBox(
+                      height: 112,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 4,
+                        itemBuilder: (cntxt, index) => Shimmer.fromColors(
+                          baseColor: Colors.black,
+                          highlightColor: Colors.grey,
+                          child: Container(
+                            height: 110,
+                            width: 110,
+                            color: theme.primaryColor.withOpacity(0.1),
+                          ),
+                        ),
+                        separatorBuilder: (cntxt, index) =>
+                            const SizedBox(width: 10),
+                      ),
+                    );
+                  }
+                  return Categories(
+                    categories: categoryController.categoryModel.data ?? [],
+                    theme: theme,
+                  );
+                },
               ),
               const SizedBox(height: 10),
               SectionHeader(
