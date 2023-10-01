@@ -10,6 +10,7 @@ import '../../state_holders/category_controller.dart';
 import '../../state_holders/main_bottom_nav_controller.dart';
 import '../../state_holders/popular_product_controller.dart';
 import '../../state_holders/product_slider_controller.dart';
+import '../../state_holders/special_product_controller.dart';
 import '../utility/image_assets.dart';
 import '../widgets/home/categories.dart';
 import '../widgets/home/circular_icon_button.dart';
@@ -184,13 +185,20 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 10),
               SizedBox(
                 height: 172,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 10,
-                  itemBuilder: (cntxt, index) {
-                    return Text('dgdh');
-                    // Product(theme: theme);
-                  },
+                child: GetBuilder<SpecialProductController>(
+                  builder: (specialProductController) => ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: specialProductController
+                            .specialProductModel.data?.length ??
+                        0,
+                    itemBuilder: (cntxt, index) {
+                      return Product(
+                        product: specialProductController
+                            .specialProductModel.data![index],
+                        theme: theme,
+                      );
+                    },
+                  ),
                 ),
               ),
               const SizedBox(height: 10),

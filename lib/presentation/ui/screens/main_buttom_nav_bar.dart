@@ -5,6 +5,7 @@ import '../../state_holders/category_controller.dart';
 import '../../state_holders/main_bottom_nav_controller.dart';
 import '../../state_holders/popular_product_controller.dart';
 import '../../state_holders/product_slider_controller.dart';
+import '../../state_holders/special_product_controller.dart';
 import './category_list_screen.dart';
 import './home_screen.dart';
 import './wish_list_screen.dart';
@@ -31,6 +32,7 @@ class _MainButtomNavBarScreenState extends State<MainButtomNavBarScreen> {
       Get.find<ProductSliderController>().getHomeSlider();
       Get.find<CategoryController>().getCategory();
       Get.find<PopularProductController>().getPopularProduct();
+      Get.find<SpecialProductController>().getSpecialProduct();
     });
     super.initState();
   }
