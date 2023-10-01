@@ -7,4 +7,6 @@ class Urls {
   static String completeProfile = '$_baseUrl/CreateProfile';
   static String productSlider = '$_baseUrl/ListProductSlider';
   static String categoryList = '$_baseUrl/CategoryList';
+  static String productListByRemark(String remark) =>
+      '$_baseUrl/ListProductByRemark/$remark';
 }

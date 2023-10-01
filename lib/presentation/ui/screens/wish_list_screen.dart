@@ -36,11 +36,12 @@ class WishListScreen extends StatelessWidget {
           ),
           itemCount: 14,
           itemBuilder: (cntxt, index) {
-            return FittedBox(
-              child: Product(
-                theme: theme,
-              ),
-            );
+            return Text('---');
+            // return FittedBox(
+            //   child: Product(
+            //     theme: theme,
+            //   ),
+            // );
           },
         ),
       ),

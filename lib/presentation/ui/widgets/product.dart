@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../data/models/product_data.dart';
 import '../screens/product_details_screen.dart';
 
 class Product extends StatelessWidget {
+  final ProductData product;
+  final ThemeData theme;
   const Product({
     super.key,
     required this.theme,
+    required this.product,
   });
-
-  final ThemeData theme;
 
   @override
   Widget build(BuildContext context) {
@@ -37,16 +39,19 @@ class Product extends StatelessWidget {
                     topLeft: Radius.circular(5.0),
                     topRight: Radius.circular(5.0),
                   ),
+                  image: DecorationImage(
+                    fit: BoxFit.scaleDown,
+                    image: NetworkImage(product.image ?? ''),
+                  ),
                 ),
-                child: const FlutterLogo(),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: <Widget>[
-                    const Text(
-                      'This is Product Name on The Product',
-                      style: TextStyle(
+                    Text(
+                      product.title ?? '',
+                      style: const TextStyle(
                         overflow: TextOverflow.ellipsis,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -58,24 +63,24 @@ class Product extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          '\$100',
+                          '\$${product.price ?? 0.0}',
                           style: TextStyle(
                             fontSize: 13,
                             color: theme.primaryColor,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        const Wrap(
+                        Wrap(
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: <Widget>[
-                            Icon(
+                            const Icon(
                               Icons.star,
                               size: 15,
                               color: Colors.amber,
                             ),
                             Text(
-                              '4.5',
-                              style: TextStyle(
+                              '${product.star ?? 0.0}',
+                              style: const TextStyle(
                                 overflow: TextOverflow.ellipsis,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,

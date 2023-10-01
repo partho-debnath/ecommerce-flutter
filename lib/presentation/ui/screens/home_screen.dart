@@ -8,6 +8,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../state_holders/category_controller.dart';
 import '../../state_holders/main_bottom_nav_controller.dart';
+import '../../state_holders/product_controller.dart';
 import '../../state_holders/product_slider_controller.dart';
 import '../utility/image_assets.dart';
 import '../widgets/home/categories.dart';
@@ -74,9 +75,6 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 10),
               GetBuilder<ProductSliderController>(
                 builder: (productSliderController) {
-                  log('==');
-                  log(productSliderController.getHomeSlidersInProgress
-                      .toString());
                   if (productSliderController.getHomeSlidersInProgress ==
                       true) {
                     return Shimmer.fromColors(
@@ -153,11 +151,21 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 10),
               SizedBox(
                 height: 172,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 10,
-                  itemBuilder: (cntxt, index) {
-                    return Product(theme: theme);
+                child: GetBuilder<ProductController>(
+                  builder: (popularProductController) {
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount:
+                          popularProductController.productModel.data?.length ??
+                              0,
+                      itemBuilder: (cntxt, index) {
+                        return Product(
+                          product: popularProductController
+                              .productModel.data![index],
+                          theme: theme,
+                        );
+                      },
+                    );
                   },
                 ),
               ),
@@ -180,7 +188,8 @@ class HomeScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
                   itemBuilder: (cntxt, index) {
-                    return Product(theme: theme);
+                    return Text('dgdh');
+                    // Product(theme: theme);
                   },
                 ),
               ),
@@ -203,7 +212,8 @@ class HomeScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
                   itemBuilder: (cntxt, index) {
-                    return Product(theme: theme);
+                    return Text('dgdh');
+                    // Product(theme: theme);
                   },
                 ),
               ),
