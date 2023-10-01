@@ -8,6 +8,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../state_holders/category_controller.dart';
 import '../../state_holders/main_bottom_nav_controller.dart';
+import '../../state_holders/new_product_controller.dart';
 import '../../state_holders/popular_product_controller.dart';
 import '../../state_holders/product_slider_controller.dart';
 import '../../state_holders/special_product_controller.dart';
@@ -138,97 +139,118 @@ class HomeScreen extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 10),
-              SectionHeader(
-                title: 'Popular',
-                onTap: () {
-                  Get.to(
-                    () => const ProductListScreen(
-                      categoryTitle: 'Popular Products',
-                    ),
-                  );
-                },
-                theme: theme,
-              ),
+              ...getPopularProduct(theme),
               const SizedBox(height: 10),
-              SizedBox(
-                height: 172,
-                child: GetBuilder<PopularProductController>(
-                  builder: (popularProductController) {
-                    return ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount:
-                          popularProductController.productModel.data?.length ??
-                              0,
-                      itemBuilder: (cntxt, index) {
-                        return Product(
-                          product: popularProductController
-                              .productModel.data![index],
-                          theme: theme,
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
+              ...getNewProduct(theme),
               const SizedBox(height: 10),
-              SectionHeader(
-                title: 'Special',
-                onTap: () {
-                  Get.to(
-                    () => const ProductListScreen(
-                      categoryTitle: 'Special Products',
-                    ),
-                  );
-                },
-                theme: theme,
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 172,
-                child: GetBuilder<SpecialProductController>(
-                  builder: (specialProductController) => ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: specialProductController
-                            .specialProductModel.data?.length ??
-                        0,
-                    itemBuilder: (cntxt, index) {
-                      return Product(
-                        product: specialProductController
-                            .specialProductModel.data![index],
-                        theme: theme,
-                      );
-                    },
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              SectionHeader(
-                title: 'New',
-                onTap: () {
-                  Get.to(
-                    () => const ProductListScreen(
-                      categoryTitle: 'New Products',
-                    ),
-                  );
-                },
-                theme: theme,
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 172,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 10,
-                  itemBuilder: (cntxt, index) {
-                    return Text('dgdh');
-                    // Product(theme: theme);
-                  },
-                ),
-              ),
+              ...getSpecialProduct(theme),
             ],
           ),
         ),
       ),
     );
+  }
+
+  List<Widget> getPopularProduct(ThemeData theme) {
+    return <Widget>[
+      SectionHeader(
+        title: 'Popular',
+        onTap: () {
+          Get.to(
+            () => const ProductListScreen(
+              categoryTitle: 'Popular Products',
+            ),
+          );
+        },
+        theme: theme,
+      ),
+      const SizedBox(height: 10),
+      SizedBox(
+        height: 172,
+        child: GetBuilder<PopularProductController>(
+          builder: (popularProductController) {
+            return ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount:
+                  popularProductController.productModel.data?.length ?? 0,
+              itemBuilder: (cntxt, index) {
+                return Product(
+                  product: popularProductController.productModel.data![index],
+                  theme: theme,
+                );
+              },
+            );
+          },
+        ),
+      )
+    ];
+  }
+
+  List<Widget> getNewProduct(ThemeData theme) {
+    return <Widget>[
+      SectionHeader(
+        title: 'New',
+        onTap: () {
+          Get.to(
+            () => const ProductListScreen(
+              categoryTitle: 'New Products',
+            ),
+          );
+        },
+        theme: theme,
+      ),
+      const SizedBox(height: 10),
+      SizedBox(
+        height: 172,
+        child: GetBuilder<NewProductController>(
+          builder: (newProductController) {
+            return ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: newProductController.newProductModel.data?.length ?? 0,
+              itemBuilder: (cntxt, index) {
+                return Product(
+                  product: newProductController.newProductModel.data![index],
+                  theme: theme,
+                );
+              },
+            );
+          },
+        ),
+      )
+    ];
+  }
+
+  List<Widget> getSpecialProduct(ThemeData theme) {
+    return <Widget>[
+      SectionHeader(
+        title: 'Special',
+        onTap: () {
+          Get.to(
+            () => const ProductListScreen(
+              categoryTitle: 'Special Products',
+            ),
+          );
+        },
+        theme: theme,
+      ),
+      const SizedBox(height: 10),
+      SizedBox(
+        height: 172,
+        child: GetBuilder<SpecialProductController>(
+          builder: (specialProductController) => ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount:
+                specialProductController.specialProductModel.data?.length ?? 0,
+            itemBuilder: (cntxt, index) {
+              return Product(
+                product:
+                    specialProductController.specialProductModel.data![index],
+                theme: theme,
+              );
+            },
+          ),
+        ),
+      )
+    ];
   }
 }

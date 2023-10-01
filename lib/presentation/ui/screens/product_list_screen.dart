@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/product.dart';
-
 class ProductListScreen extends StatelessWidget {
   final String categoryTitle;
   const ProductListScreen({
