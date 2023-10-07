@@ -29,6 +29,7 @@ class Categories extends StatelessWidget {
               Get.to(
                 () => ProductListScreen(
                   categoryTitle: categories[index].categoryName!,
+                  categoryId: categories[index].id!,
                 ),
               );
             },

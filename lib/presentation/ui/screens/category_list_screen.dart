@@ -56,6 +56,8 @@ class CategoryListScreen extends StatelessWidget {
                         () => ProductListScreen(
                           categoryTitle: categoryController
                               .categoryModel.data![index].categoryName!,
+                          categoryId:
+                              categoryController.categoryModel.data![index].id!,
                         ),
                       );
                     },

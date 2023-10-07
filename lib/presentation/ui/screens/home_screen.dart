@@ -117,7 +117,8 @@ class HomeScreen extends StatelessWidget {
                       height: 112,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
-                        itemCount: 4,
+                        itemCount:
+                            categoryController.categoryModel.data?.length ?? 0,
                         itemBuilder: (cntxt, index) => Shimmer.fromColors(
                           baseColor: Colors.black,
                           highlightColor: Colors.grey,
@@ -156,11 +157,12 @@ class HomeScreen extends StatelessWidget {
       SectionHeader(
         title: 'Popular',
         onTap: () {
-          Get.to(
-            () => const ProductListScreen(
-              categoryTitle: 'Popular Products',
-            ),
-          );
+          // Get.to(
+          //   () => const ProductListScreen(
+          //     categoryTitle: 'Popular Products',
+
+          //   ),
+          // );
         },
         theme: theme,
       ),
@@ -191,11 +193,11 @@ class HomeScreen extends StatelessWidget {
       SectionHeader(
         title: 'New',
         onTap: () {
-          Get.to(
-            () => const ProductListScreen(
-              categoryTitle: 'New Products',
-            ),
-          );
+          // Get.to(
+          //   () => const ProductListScreen(
+          //     categoryTitle: 'New Products',
+          //   ),
+          // );
         },
         theme: theme,
       ),
@@ -225,11 +227,11 @@ class HomeScreen extends StatelessWidget {
       SectionHeader(
         title: 'Special',
         onTap: () {
-          Get.to(
-            () => const ProductListScreen(
-              categoryTitle: 'Special Products',
-            ),
-          );
+          // Get.to(
+          //   () => const ProductListScreen(
+          //     categoryTitle: 'Special Products',
+          //   ),
+          // );
         },
         theme: theme,
       ),
