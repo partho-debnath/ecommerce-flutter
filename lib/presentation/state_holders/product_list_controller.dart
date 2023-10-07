@@ -35,6 +35,11 @@ class ProductListController extends GetxController {
     }
   }
 
+  void setProducts(ProductModel newProductModel) {
+    _productModel = newProductModel;
+    update();
+  }
+
   void clearProductList() {
     _productModel.data = null;
     update();

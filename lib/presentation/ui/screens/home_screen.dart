@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
@@ -157,12 +155,12 @@ class HomeScreen extends StatelessWidget {
       SectionHeader(
         title: 'Popular',
         onTap: () {
-          // Get.to(
-          //   () => const ProductListScreen(
-          //     categoryTitle: 'Popular Products',
-
-          //   ),
-          // );
+          Get.to(
+            () => ProductListScreen(
+              categoryTitle: 'Popular Products',
+              productModel: Get.find<PopularProductController>().productModel,
+            ),
+          );
         },
         theme: theme,
       ),
@@ -193,11 +191,12 @@ class HomeScreen extends StatelessWidget {
       SectionHeader(
         title: 'New',
         onTap: () {
-          // Get.to(
-          //   () => const ProductListScreen(
-          //     categoryTitle: 'New Products',
-          //   ),
-          // );
+          Get.to(
+            () => ProductListScreen(
+              categoryTitle: 'New Products',
+              productModel: Get.find<NewProductController>().newProductModel,
+            ),
+          );
         },
         theme: theme,
       ),
@@ -227,11 +226,13 @@ class HomeScreen extends StatelessWidget {
       SectionHeader(
         title: 'Special',
         onTap: () {
-          // Get.to(
-          //   () => const ProductListScreen(
-          //     categoryTitle: 'Special Products',
-          //   ),
-          // );
+          Get.to(
+            () => ProductListScreen(
+              categoryTitle: 'Special Products',
+              productModel:
+                  Get.find<SpecialProductController>().specialProductModel,
+            ),
+          );
         },
         theme: theme,
       ),

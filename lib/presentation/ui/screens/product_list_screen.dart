@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../data/models/product_model.dart';
 import '../../state_holders/product_list_controller.dart';
 import '../widgets/product.dart';
 
 class ProductListScreen extends StatefulWidget {
   final String categoryTitle;
-  final int categoryId;
+  final int? categoryId;
+  final ProductModel? productModel;
   const ProductListScreen({
     super.key,
     required this.categoryTitle,
-    required this.categoryId,
+    this.categoryId,
+    this.productModel,
   });
 
   @override
@@ -22,15 +25,13 @@ class _ProductListScreenState extends State<ProductListScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Get.find<ProductListController>().getProducts(widget.categoryId);
+      if (widget.categoryId != null) {
+        Get.find<ProductListController>().getProducts(widget.categoryId!);
+      } else if (widget.productModel != null) {
+        Get.find<ProductListController>().setProducts(widget.productModel!);
+      }
     });
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    Get.find<ProductListController>().clearProductList();
-    super.dispose();
   }
 
   @override
