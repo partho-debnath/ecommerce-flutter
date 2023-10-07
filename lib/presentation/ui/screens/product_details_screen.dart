@@ -4,43 +4,155 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../state_holders/product_details_controller.dart';
 import '../widgets/product_color_selector.dart';
 import '../widgets/product_image_slider.dart';
 import '../widgets/product_size_selector.dart';
 import '../widgets/stepper_counter.dart';
 import './review_screen.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key});
+class ProductDetailsScreen extends StatefulWidget {
+  final int productId;
+  const ProductDetailsScreen({
+    super.key,
+    required this.productId,
+  });
+
+  @override
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Get.find<ProductDetailsController>().getProductDetails(widget.productId);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Stack(
+      body: GetBuilder<ProductDetailsController>(
+        builder: (productDetailsController) {
+          if (productDetailsController.getProductDetailsIsInProgress) {
+            return const Center(child: CircularProgressIndicator.adaptive());
+          }
+          return Column(
             children: <Widget>[
-              const ProductImageSlider(),
-              AppBar(
-                elevation: 0,
-                backgroundColor: Colors.transparent,
-                leading: const BackButton(color: Colors.black54),
-                title: const Text(
-                  'Product Details',
-                  style: TextStyle(color: Colors.black54),
-                ),
+              Stack(
+                children: <Widget>[
+                  ProductImageSlider(images: productDetailsController.images),
+                  AppBar(
+                    elevation: 0,
+                    backgroundColor: Colors.transparent,
+                    leading: const BackButton(color: Colors.black54),
+                    title: const Text(
+                      'Product Details',
+                      style: TextStyle(color: Colors.black54),
+                    ),
+                  ),
+                ],
+              ),
+              productDescription(
+                productDetailsController: productDetailsController,
+                theme: theme,
+              ),
+              productAddToCartButtom(
+                productDetailsController: productDetailsController,
+                theme: theme,
               ),
             ],
-          ),
-          productDescription(theme),
-          productAddToCartButtom(theme),
-        ],
+          );
+        },
       ),
     );
   }
 
-  Container productAddToCartButtom(ThemeData theme) {
+  Expanded productDescription({
+    required ProductDetailsController productDetailsController,
+    required ThemeData theme,
+  }) {
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      productDetailsController.productDetails.product?.title ??
+                          '',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  StepperCounter(
+                    color: theme.primaryColor,
+                    startingValue: 1,
+                    lowerLimit: 1,
+                    upperLimit: 10,
+                    onChange: (value) {
+                      log(value.toString());
+                    },
+                  ),
+                ],
+              ),
+              productReview(
+                productDetailsController.productDetails.product?.star ?? 0.0,
+                theme,
+              ),
+              contentHeader(title: 'Color'),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: 28,
+                child: ProductColorSelector(
+                  colors: productDetailsController.availableColors,
+                  onChangeColor: (color, index) {
+                    log(index.toString());
+                  },
+                ),
+              ),
+              const SizedBox(height: 15),
+              contentHeader(title: 'Size'),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: 30,
+                child: ProductSizeSelector(
+                  sizes:
+                      productDetailsController.productDetails.size!.split(','),
+                  selectedColor: theme.primaryColor,
+                  onChangeSize: (sizeLabel, index) {
+                    log(sizeLabel);
+                    log(index.toString());
+                  },
+                ),
+              ),
+              const SizedBox(height: 15),
+              contentHeader(title: 'Description'),
+              const SizedBox(height: 10),
+              Text(
+                productDetailsController.productDetails.product?.shortDes ?? '',
+                textScaleFactor: 1.2,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container productAddToCartButtom({
+    required ProductDetailsController productDetailsController,
+    required ThemeData theme,
+  }) {
     return Container(
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
@@ -86,86 +198,19 @@ class ProductDetailsScreen extends StatelessWidget {
     );
   }
 
-  Expanded productDescription(ThemeData theme) {
-    return Expanded(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  const Expanded(
-                    child: Text(
-                      'Addidas Shoe KJHg232 - Black Edition.',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  StepperCounter(
-                    color: theme.primaryColor,
-                    startingValue: 1,
-                    lowerLimit: 1,
-                    upperLimit: 10,
-                    onChange: (value) {
-                      log(value.toString());
-                    },
-                  ),
-                ],
-              ),
-              productReview(theme),
-              contentHeader(title: 'Color'),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 28,
-                child: ProductColorSelector(
-                  onChangeColor: (color, index) {
-                    log(index.toString());
-                  },
-                ),
-              ),
-              const SizedBox(height: 15),
-              contentHeader(title: 'Size'),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 30,
-                child: ProductSizeSelector(
-                  selectedColor: theme.primaryColor,
-                  onChangeSize: (sizeLabel, index) {
-                    log(sizeLabel);
-                    log(index.toString());
-                  },
-                ),
-              ),
-              const SizedBox(height: 15),
-              contentHeader(title: 'Description'),
-              const SizedBox(height: 10),
-              const Text(
-                '''Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem  Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.''',
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Row productReview(ThemeData theme) {
+  Row productReview(double productRating, ThemeData theme) {
     return Row(
       children: <Widget>[
-        const Wrap(
+        Wrap(
           children: <Widget>[
-            Icon(
+            const Icon(
               Icons.star,
               size: 18,
               color: Colors.amber,
             ),
             Text(
-              '4.5',
-              style: TextStyle(
+              '$productRating',
+              style: const TextStyle(
                 overflow: TextOverflow.ellipsis,
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
@@ -176,6 +221,7 @@ class ProductDetailsScreen extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
+            log(widget.productId.toString());
             Get.to(() => const ReviewScreen());
           },
           child: Text(

@@ -19,7 +19,7 @@ class Product extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(5.0),
       onTap: () {
-        Get.to(() => const ProductDetailsScreen());
+        Get.to(() => ProductDetailsScreen(productId: product.id!));
       },
       child: Card(
         shape: RoundedRectangleBorder(

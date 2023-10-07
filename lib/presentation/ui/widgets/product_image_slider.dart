@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class ProductImageSlider extends StatefulWidget {
-  const ProductImageSlider({super.key});
+  final List<String> images;
+  const ProductImageSlider({super.key, required this.images});
 
   @override
   State<ProductImageSlider> createState() => _ProductImageSliderState();
@@ -28,20 +29,19 @@ class _ProductImageSliderState extends State<ProductImageSlider> {
               selectedSlider.value = index;
             },
           ),
-          items: [1, 2, 3, 4, 5].map<Builder>(
-            (i) {
+          items: widget.images.map<Builder>(
+            (imageUrl) {
               return Builder(
                 builder: (BuildContext context) {
                   return Container(
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       color: Colors.grey.shade300,
+                      image: DecorationImage(
+                        image: NetworkImage(imageUrl),
+                      ),
                     ),
                     alignment: Alignment.center,
-                    child: Text(
-                      'text $i',
-                      style: const TextStyle(fontSize: 16.0),
-                    ),
                   );
                 },
               );
@@ -59,7 +59,7 @@ class _ProductImageSliderState extends State<ProductImageSlider> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   ...List<Container>.generate(
-                    5,
+                    widget.images.length,
                     (i) => Container(
                       width: 12,
                       height: 12,

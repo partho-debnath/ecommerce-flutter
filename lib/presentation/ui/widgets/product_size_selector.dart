@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ProductSizeSelector extends StatefulWidget {
+  final List<String> sizes;
   final Color selectedColor;
   final void Function(String sizeLabel, int index) onChangeSize;
   const ProductSizeSelector({
     super.key,
+    required this.sizes,
     required this.onChangeSize,
     required this.selectedColor,
   });
@@ -14,21 +16,13 @@ class ProductSizeSelector extends StatefulWidget {
 }
 
 class _ProductSizeSelectorState extends State<ProductSizeSelector> {
-  final List<String> sizes = [
-    'S',
-    'M',
-    'L',
-    'XL',
-    'XXL',
-    'XXXL',
-  ];
   int selectedSizeIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       scrollDirection: Axis.horizontal,
-      itemCount: sizes.length,
+      itemCount: widget.sizes.length,
       separatorBuilder: (context, index) => const SizedBox(width: 2),
       itemBuilder: (cntxt, index) {
         return GestureDetector(
@@ -37,7 +31,7 @@ class _ProductSizeSelectorState extends State<ProductSizeSelector> {
               return;
             }
             selectedSizeIndex = index;
-            widget.onChangeSize(sizes[index], index);
+            widget.onChangeSize(widget.sizes[index], index);
             if (mounted) {
               setState(() {});
             }
@@ -45,7 +39,7 @@ class _ProductSizeSelectorState extends State<ProductSizeSelector> {
           child: Chip(
             backgroundColor:
                 selectedSizeIndex == index ? widget.selectedColor : null,
-            label: Text(sizes[index]),
+            label: Text(widget.sizes[index]),
           ),
         );
       },
