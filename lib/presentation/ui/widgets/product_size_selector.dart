@@ -27,9 +27,6 @@ class _ProductSizeSelectorState extends State<ProductSizeSelector> {
       itemBuilder: (cntxt, index) {
         return GestureDetector(
           onTap: () {
-            if (selectedSizeIndex == index) {
-              return;
-            }
             selectedSizeIndex = index;
             widget.onChangeSize(widget.sizes[index], index);
             if (mounted) {

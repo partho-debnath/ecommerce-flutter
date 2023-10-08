@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:ecommerce/presentation/ui/utility/color_extension.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../state_holders/add_to_cart_controller.dart';
 import '../../state_holders/product_details_controller.dart';
 import '../widgets/product_color_selector.dart';
 import '../widgets/product_image_slider.dart';
@@ -23,16 +25,21 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  String? _selectedColor;
+  String? _selectedSize;
+
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Get.find<ProductDetailsController>().getProductDetails(widget.productId);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await Get.find<ProductDetailsController>()
+          .getProductDetails(widget.productId);
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    log(widget.productId.toString());
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       body: GetBuilder<ProductDetailsController>(
@@ -116,6 +123,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 child: ProductColorSelector(
                   colors: productDetailsController.availableColors,
                   onChangeColor: (color, index) {
+                    _selectedColor = color.toHex();
                     log(index.toString());
                   },
                 ),
@@ -126,10 +134,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               SizedBox(
                 height: 30,
                 child: ProductSizeSelector(
-                  sizes:
-                      productDetailsController.productDetails.size!.split(','),
+                  sizes: productDetailsController.availableSizes ?? [],
                   selectedColor: theme.primaryColor,
                   onChangeSize: (sizeLabel, index) {
+                    _selectedSize = sizeLabel;
                     log(sizeLabel);
                     log(index.toString());
                   },
@@ -188,9 +196,38 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
           SizedBox(
             width: 120,
-            child: ElevatedButton(
-              onPressed: () {},
-              child: const Text('Add to cart'),
+            child: GetBuilder<AddToCartController>(
+              builder: (addToCartController) {
+                if (addToCartController.addToCartInProgress) {
+                  return ElevatedButton.icon(
+                    onPressed: null,
+                    icon: const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(),
+                    ),
+                    label: const Text('Add to cart'),
+                  );
+                }
+                return ElevatedButton(
+                  onPressed: () {
+                    if (_selectedColor == null) {
+                      Get.snackbar('Color Warning!', 'Select the Color.',
+                          backgroundColor: Colors.red);
+                    } else if (_selectedSize == null) {
+                      Get.snackbar('Siz Warning!', 'Select the Size.',
+                          backgroundColor: Colors.red);
+                    } else {
+                      addToCartController.addToCart(
+                        productDetailsController.productDetails.id!,
+                        _selectedColor!,
+                        _selectedSize!,
+                      );
+                    }
+                  },
+                  child: const Text('Add to cart'),
+                );
+              },
             ),
           ),
         ],

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:get/get.dart';
@@ -13,11 +14,13 @@ class ProductDetailsController extends GetxController {
   bool _getProductDetailsIsInProgress = false;
   ProductDetails _productDetails = ProductDetails();
   final List<Color> _availableColors = [];
+  List<String>? _availableSizes;
   String _errorMessage = '';
 
   bool get getProductDetailsIsInProgress => _getProductDetailsIsInProgress;
   ProductDetails get productDetails => _productDetails;
   List<Color> get availableColors => _availableColors;
+  List<String>? get availableSizes => _availableSizes;
   String get errorMessage => _errorMessage;
 
   Future<bool> getProductDetails(int productId) async {
@@ -35,6 +38,7 @@ class ProductDetailsController extends GetxController {
               .data!
               .first;
       _convertStringToColors(_productDetails.color ?? '');
+      _convertStringToSizes(_productDetails.size ?? '');
       update();
       return true;
     } else {
@@ -46,10 +50,10 @@ class ProductDetailsController extends GetxController {
 
   List<String> get images {
     return [
-      _productDetails.img1!,
-      _productDetails.img2!,
-      _productDetails.img3!,
-      _productDetails.img4!
+      _productDetails.img1 ?? '',
+      _productDetails.img2 ?? '',
+      _productDetails.img3 ?? '',
+      _productDetails.img4 ?? ''
     ];
   }
 
@@ -59,5 +63,10 @@ class ProductDetailsController extends GetxController {
     for (int i = 0; i < splitColors.length; i++) {
       _availableColors.add(HexColor.fromHex(splitColors[i]));
     }
+  }
+
+  void _convertStringToSizes(String sizes) {
+    log(sizes);
+    _availableSizes = sizes.split(',');
   }
 }

@@ -1,16 +1,23 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
+import '../../application/app.dart';
+import '../../presentation/state_holders/auth_controller.dart';
+import '../../presentation/ui/screens/auth/email_verification_screen.dart';
 import '../models/network_response.dart';
 
 class NetworkCaller {
-  Future<NetworkResponse> getRequest(String url) async {
+  Future<NetworkResponse> getRequest(String url,
+      {bool loginRequired = false}) async {
     try {
       Response response = await get(
         Uri.parse(url),
-        /*headers: {'token': AuthUtility.userInfo.token.toString()}*/
+        headers: {
+          'token': AuthController.accessToken ?? '',
+        },
       );
       log(response.statusCode.toString());
       // log(response.body);
@@ -19,7 +26,9 @@ class NetworkCaller {
         return NetworkResponse(
             true, response.statusCode, jsonDecode(response.body));
       } else if (response.statusCode == 401) {
-        gotoLogin();
+        if (loginRequired) {
+          gotoLogin();
+        }
       } else {
         return NetworkResponse(false, response.statusCode, null);
       }
@@ -36,14 +45,13 @@ class NetworkCaller {
         Uri.parse(url),
         headers: {
           'Content-Type': 'application/json',
-          // 'token': AuthUtility.userInfo.token.toString()
+          'token': AuthController.accessToken ?? '',
         },
         body: jsonEncode(body),
       );
       log(response.statusCode.toString());
       log(response.body);
-      if (response.statusCode == 200 &&
-          jsonDecode(response.body)['status'] == 'success') {
+      if (response.statusCode == 200) {
         return NetworkResponse(
           true,
           response.statusCode,
@@ -63,10 +71,11 @@ class NetworkCaller {
   }
 
   Future<void> gotoLogin() async {
-    // await AuthUtility.clearUserInfo();
-    // Navigator.pushAndRemoveUntil(
-    //     TaskManagerApp.globalKey.currentContext!,
-    //     MaterialPageRoute(builder: (context) => LoginScreen()),
-    //         (route) => false);
+    await AuthController.clearUserInfo();
+    Navigator.pushAndRemoveUntil(
+        CraftBay.globalKey.currentContext!,
+        MaterialPageRoute(
+            builder: (context) => const EmailVerificationScreen()),
+        (route) => false);
   }
 }

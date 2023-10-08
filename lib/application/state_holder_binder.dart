@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../presentation/state_holders/add_to_cart_controller.dart';
 import '../presentation/state_holders/category_controller.dart';
 import '../presentation/state_holders/complete_profile_controller.dart';
 import '../presentation/state_holders/email_verification_controller.dart';
@@ -26,5 +27,6 @@ class StateHolderBinder extends Bindings {
     Get.put(NewProductController());
     Get.put(ProductListController());
     Get.put(ProductDetailsController());
+    Get.put(AddToCartController());
   }
 }

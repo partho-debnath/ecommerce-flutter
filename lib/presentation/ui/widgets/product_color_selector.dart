@@ -25,9 +25,6 @@ class _ProductColorSelectorState extends State<ProductColorSelector> {
       itemBuilder: (cntxt, index) {
         return GestureDetector(
           onTap: () {
-            if (selectedColorIndex == index) {
-              return;
-            }
             selectedColorIndex = index;
             widget.onChangeColor(widget.colors[index], index);
             if (mounted) {
