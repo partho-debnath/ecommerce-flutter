@@ -2,11 +2,25 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../state_holders/cart_controller.dart';
 import '../../state_holders/main_bottom_nav_controller.dart';
 import '../widgets/product_cart_item.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Get.find<CartController>().getCart();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +41,25 @@ class CartScreen extends StatelessWidget {
             style: TextStyle(color: Colors.black54),
           ),
         ),
-        body: Column(
-          children: <Widget>[
-            Expanded(
-              child: ListView.builder(
-                itemCount: 5,
-                itemBuilder: (xntxt, index) {
-                  return ProductCartItem(theme: theme);
-                },
-              ),
-            ),
-            productCheckout(theme),
-          ],
+        body: GetBuilder<CartController>(
+          builder: (cartController) {
+            if (cartController.getCartIsInProgress) {
+              return const Center(child: CircularProgressIndicator.adaptive());
+            }
+            return Column(
+              children: <Widget>[
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: 5,
+                    itemBuilder: (xntxt, index) {
+                      return ProductCartItem(theme: theme);
+                    },
+                  ),
+                ),
+                productCheckout(theme),
+              ],
+            );
+          },
         ),
       ),
     );
