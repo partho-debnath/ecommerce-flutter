@@ -212,14 +212,35 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 }
                 return ElevatedButton(
                   onPressed: () {
-                    addToCartController.addToCart(
+                    addToCartController
+                        .addToCart(
                       productDetailsController.productDetails.id!,
                       productDetailsController
                           .availableColors[_selectedColorIndex]
                           .toHex(),
                       productDetailsController
                           .availableSizes![_selectedSizeIndex],
-                    );
+                    )
+                        .then((value) {
+                      if (value == false) {
+                        Get.snackbar(
+                          'Failed!.',
+                          'Product add to cart failed. Try again later.',
+                          backgroundColor: Colors.red,
+                        );
+                        return;
+                      }
+                      Get.snackbar(
+                        'Success!',
+                        'This product added to your cart list.',
+                        icon: const Icon(
+                          Icons.done,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        backgroundColor: theme.primaryColor,
+                      );
+                    });
                   },
                   child: const Text('Add to cart'),
                 );
