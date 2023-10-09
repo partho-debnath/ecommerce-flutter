@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:ui';
 
 import 'package:get/get.dart';
@@ -66,7 +65,6 @@ class ProductDetailsController extends GetxController {
   }
 
   void _convertStringToSizes(String sizes) {
-    log(sizes);
     _availableSizes = sizes.split(',');
   }
 }

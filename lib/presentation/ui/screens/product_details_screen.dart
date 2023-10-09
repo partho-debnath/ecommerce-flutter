@@ -25,8 +25,8 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  String? _selectedColor;
-  String? _selectedSize;
+  int _selectedColorIndex = 0;
+  int _selectedSizeIndex = 0;
 
   @override
   void initState() {
@@ -123,8 +123,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 child: ProductColorSelector(
                   colors: productDetailsController.availableColors,
                   onChangeColor: (color, index) {
-                    _selectedColor = color.toHex();
                     log(index.toString());
+                    _selectedColorIndex = index;
+                    // color.toHex();
                   },
                 ),
               ),
@@ -137,7 +138,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   sizes: productDetailsController.availableSizes ?? [],
                   selectedColor: theme.primaryColor,
                   onChangeSize: (sizeLabel, index) {
-                    _selectedSize = sizeLabel;
+                    _selectedSizeIndex = index;
                     log(sizeLabel);
                     log(index.toString());
                   },
@@ -211,19 +212,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 }
                 return ElevatedButton(
                   onPressed: () {
-                    if (_selectedColor == null) {
-                      Get.snackbar('Color Warning!', 'Select the Color.',
-                          backgroundColor: Colors.red);
-                    } else if (_selectedSize == null) {
-                      Get.snackbar('Siz Warning!', 'Select the Size.',
-                          backgroundColor: Colors.red);
-                    } else {
-                      addToCartController.addToCart(
-                        productDetailsController.productDetails.id!,
-                        _selectedColor!,
-                        _selectedSize!,
-                      );
-                    }
+                    addToCartController.addToCart(
+                      productDetailsController.productDetails.id!,
+                      productDetailsController
+                          .availableColors[_selectedColorIndex]
+                          .toHex(),
+                      productDetailsController
+                          .availableSizes![_selectedSizeIndex],
+                    );
                   },
                   child: const Text('Add to cart'),
                 );

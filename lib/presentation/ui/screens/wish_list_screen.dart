@@ -39,6 +39,7 @@ class WishListScreen extends StatelessWidget {
             return Text('---');
             // return FittedBox(
             //   child: Product(
+            //     product: ,
             //     theme: theme,
             //   ),
             // );
