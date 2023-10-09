@@ -17,7 +17,7 @@ class CartController extends GetxController {
     _getCartIsInProgress = true;
     update();
 
-    NetworkResponse networkResponse =
+    final NetworkResponse networkResponse =
         await NetworkCaller().getRequest(Urls.getCartList, loginRequired: true);
 
     if (networkResponse.isSuccess) {
@@ -31,4 +31,26 @@ class CartController extends GetxController {
     update();
     return isSuccess;
   }
+
+  Future<bool> deleteCart(int productId) async {
+    late bool isSuccess;
+    _getCartIsInProgress = true;
+    update();
+
+    final NetworkResponse networkResponse = await NetworkCaller()
+        .getRequest(Urls.deleteCart(productId), loginRequired: true);
+
+    if (networkResponse.isSuccess) {
+      removeProductFromCartList(productId);
+      isSuccess = true;
+    } else {
+      _errorMessage = 'Cart delete failed.';
+      isSuccess = false;
+    }
+    _getCartIsInProgress = false;
+    update();
+    return isSuccess;
+  }
+
+  void removeProductFromCartList(int productId) {}
 }
