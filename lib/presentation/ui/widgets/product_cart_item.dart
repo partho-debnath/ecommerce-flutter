@@ -1,14 +1,20 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
+import '../../../data/models/cart_data.dart';
 import './stepper_counter.dart';
 
 class ProductCartItem extends StatelessWidget {
+  final ThemeData theme;
+  final CartData cartData;
+  final VoidCallback onDelete;
   const ProductCartItem({
     super.key,
     required this.theme,
+    required this.cartData,
+    required this.onDelete,
   });
-
-  final ThemeData theme;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +61,10 @@ class ProductCartItem extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        log(cartData.productId.toString());
+                        onDelete();
+                      },
                       icon: const Icon(Icons.delete_outline),
                     ),
                   ],

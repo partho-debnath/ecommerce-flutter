@@ -45,18 +45,32 @@ class _CartScreenState extends State<CartScreen> {
           builder: (cartController) {
             if (cartController.getCartIsInProgress) {
               return const Center(child: CircularProgressIndicator.adaptive());
+            } else if (cartController.cartModel.data?.isEmpty ?? true) {
+              return Center(
+                child: Text(
+                  'Empty Cart List.',
+                  style: theme.textTheme.displaySmall?.copyWith(fontSize: 20),
+                ),
+              );
             }
             return Column(
               children: <Widget>[
                 Expanded(
                   child: ListView.builder(
-                    itemCount: 5,
+                    itemCount: cartController.cartModel.data?.length ?? 0,
                     itemBuilder: (xntxt, index) {
-                      return ProductCartItem(theme: theme);
+                      return ProductCartItem(
+                        theme: theme,
+                        cartData: cartController.cartModel.data![index],
+                        onDelete: () async {
+                          await cartController.deleteCart(
+                              cartController.cartModel.data![index].productId!);
+                        },
+                      );
                     },
                   ),
                 ),
-                productCheckout(theme),
+                productCheckout(theme, cartController.totalPrice),
               ],
             );
           },
@@ -65,7 +79,7 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Container productCheckout(ThemeData theme) {
+  Container productCheckout(ThemeData theme, double totalPrice) {
     return Container(
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
@@ -90,7 +104,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
               const SizedBox(height: 4),
               Text(
-                '\$12000',
+                totalPrice.toStringAsFixed(2),
                 style: TextStyle(
                   fontSize: 18,
                   color: theme.primaryColor,
