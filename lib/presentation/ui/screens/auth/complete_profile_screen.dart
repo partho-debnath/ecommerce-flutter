@@ -1,9 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
+import '../../../state_holders/profile_controller.dart';
 import '../../utility/image_assets.dart';
 
 class CompleteProfileScreen extends StatefulWidget {
@@ -161,14 +161,45 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate() == false) {
-                      return;
+                GetBuilder<ProfileController>(
+                  builder: (profileController) {
+                    if (profileController.profileCreateInProgress == true) {
+                      return const Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      );
                     }
-                    log('-----Ok------');
+                    return ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate() == false) {
+                          return;
+                        }
+                        bool isProfileCreationSuccess =
+                            await profileController.createProfile(
+                          firstName: firstNameController.text.trim(),
+                          lastName: lstNameController.text.trim(),
+                          mobile: mobileNumberController.text.trim(),
+                          city: cityController.text.trim(),
+                          shippingAddress:
+                              shippingAddressController.text.trim(),
+                        );
+                        if (isProfileCreationSuccess == true) {
+                          _formKey.currentState!.reset();
+                          Get.snackbar(
+                            'Success!',
+                            'Profile Created Successful.',
+                            backgroundColor: Colors.green,
+                          );
+                        } else {
+                          Get.snackbar(
+                            'Failed!',
+                            'Profile Created Failed. Try again.',
+                            backgroundColor: Colors.red,
+                          );
+                        }
+                      },
+                      child: const Text('Next'),
+                    );
                   },
-                  child: const Text('Next'),
                 ),
               ],
             ),

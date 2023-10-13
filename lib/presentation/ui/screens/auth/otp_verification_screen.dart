@@ -9,6 +9,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../state_holders/otp_verification_controller.dart';
 import '../../utility/image_assets.dart';
+import '../main_buttom_nav_bar.dart';
 import './complete_profile_screen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
@@ -213,9 +214,14 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       email: widget.email,
       otp: otpController.text.trim(),
     );
-
     if (isVarified) {
-      Get.to(() => const CompleteProfileScreen());
+      final bool isProfileExist =
+          await otpVerificationController.readUserProfile();
+      if (isProfileExist == true) {
+        Get.offAll(() => const MainButtomNavBarScreen());
+      } else {
+        Get.to(() => const CompleteProfileScreen());
+      }
     } else {
       Get.snackbar(
         'Warning!',

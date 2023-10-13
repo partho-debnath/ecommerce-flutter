@@ -10,13 +10,18 @@ import '../../presentation/ui/screens/auth/email_verification_screen.dart';
 import '../models/network_response.dart';
 
 class NetworkCaller {
-  Future<NetworkResponse> getRequest(String url,
-      {bool loginRequired = false}) async {
+  Future<NetworkResponse> getRequest(
+    String url, {
+    bool loginRequired = false,
+    String tempToken = '',
+  }) async {
+    final String token = AuthController.accessToken ?? tempToken;
+    log(token);
     try {
       Response response = await get(
         Uri.parse(url),
         headers: {
-          'token': AuthController.accessToken ?? '',
+          'token': token,
         },
       );
       log(response.statusCode.toString());
@@ -38,14 +43,18 @@ class NetworkCaller {
     return NetworkResponse(false, -1, null);
   }
 
-  Future<NetworkResponse> postRequest(String url, Map<String, dynamic> body,
-      {bool isLogin = false}) async {
+  Future<NetworkResponse> postRequest(
+    String url,
+    Map<String, dynamic> body, {
+    bool loginRequired = false,
+    String tempToken = '',
+  }) async {
     try {
       Response response = await post(
         Uri.parse(url),
         headers: {
           'Content-Type': 'application/json',
-          'token': AuthController.accessToken ?? '',
+          'token': AuthController.accessToken ?? tempToken,
         },
         body: jsonEncode(body),
       );
@@ -58,7 +67,7 @@ class NetworkCaller {
           jsonDecode(response.body),
         );
       } else if (response.statusCode == 401) {
-        if (isLogin == false) {
+        if (loginRequired == true) {
           gotoLogin();
         }
       } else {
