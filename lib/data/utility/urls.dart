@@ -21,4 +21,5 @@ class Urls {
   static const String createProfile = '$_baseUrl/CreateProfile';
   static String productReviewById(int productId) =>
       '$_baseUrl/ListReviewByProduct/$productId';
+  static String get createReview => '$_baseUrl/CreateProductReview';
 }

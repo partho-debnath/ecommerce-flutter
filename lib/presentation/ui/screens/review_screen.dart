@@ -91,7 +91,13 @@ class _ReviewScreenState extends State<ReviewScreen> {
                       FloatingActionButton(
                         backgroundColor: theme.primaryColor,
                         onPressed: () {
-                          Get.to(() => const CreateReviewScreen());
+                          Get.to(() => CreateReviewScreen(
+                                productId: widget.productId,
+                              ))?.then((value) {
+                            if (value == true) {
+                              reviewController.getReviews(widget.productId);
+                            }
+                          });
                         },
                         child: const Icon(Icons.add),
                       )

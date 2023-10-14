@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'package:get/get.dart';
+
+import '../../state_holders/review_controller.dart';
+
 class CreateReviewScreen extends StatefulWidget {
-  const CreateReviewScreen({super.key});
+  final int productId;
+  const CreateReviewScreen({super.key, required this.productId});
 
   @override
   State<CreateReviewScreen> createState() => _CreateReviewScreenState();
@@ -11,13 +16,13 @@ class _CreateReviewScreenState extends State<CreateReviewScreen> {
   final GlobalKey<FormState> form = GlobalKey<FormState>();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController reviewController = TextEditingController();
+  final TextEditingController reviewTextController = TextEditingController();
 
   @override
   void dispose() {
     firstNameController.dispose();
     lastNameController.dispose();
-    reviewController.dispose();
+    reviewTextController.dispose();
     super.dispose();
   }
 
@@ -72,7 +77,7 @@ class _CreateReviewScreenState extends State<CreateReviewScreen> {
                 const SizedBox(height: 16),
                 customTextFormField(
                   hintText: 'Enter Review',
-                  controller: reviewController,
+                  controller: reviewTextController,
                   maxLength: 10,
                   keyboardType: TextInputType.multiline,
                   textInputAction: TextInputAction.newline,
@@ -85,13 +90,38 @@ class _CreateReviewScreenState extends State<CreateReviewScreen> {
                   },
                 ),
                 const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    if (form.currentState!.validate() == false) {
-                      return;
+                GetBuilder<ReviewController>(
+                  builder: (reviewController) {
+                    if (reviewController.getReviewIsInProgress == true) {
+                      return ElevatedButton.icon(
+                        onPressed: null,
+                        icon: const CircularProgressIndicator.adaptive(),
+                        label: const Text('Submit'),
+                      );
                     }
+                    return ElevatedButton(
+                      onPressed: () async {
+                        if (form.currentState!.validate() == false) {
+                          return;
+                        }
+                        reviewController
+                            .addReview(widget.productId,
+                                reviewTextController.text.trim())
+                            .then((value) {
+                          if (value == true) {
+                            Get.back(result: true);
+                          } else {
+                            Get.snackbar(
+                              'Failed!',
+                              'Review added failed! try again later.',
+                              backgroundColor: Colors.red,
+                            );
+                          }
+                        });
+                      },
+                      child: const Text('Submit'),
+                    );
                   },
-                  child: const Text('Submit'),
                 ),
               ],
             ),

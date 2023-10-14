@@ -34,4 +34,30 @@ class ReviewController extends GetxController {
     update();
     return isSuccess;
   }
+
+  Future<bool> addReview(int productId, String review) async {
+    late bool isSuccess;
+    _getReviewIsInProgress = true;
+    update();
+    final Map<String, dynamic> reviewData = {
+      "product_id": productId,
+      "description": review,
+    };
+    final NetworkResponse networkResponse = await NetworkCaller().postRequest(
+      Urls.createReview,
+      reviewData,
+      loginRequired: true,
+    );
+    _getReviewIsInProgress = false;
+    update();
+
+    if (networkResponse.isSuccess) {
+      isSuccess = true;
+    } else {
+      _errorMessage = 'Review added failed!';
+      isSuccess = false;
+    }
+    update();
+    return isSuccess;
+  }
 }
