@@ -217,6 +217,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     if (isVarified) {
       final bool isProfileExist =
           await otpVerificationController.readUserProfile();
+
       if (isProfileExist == true) {
         Get.offAll(() => const MainButtomNavBarScreen());
       } else {

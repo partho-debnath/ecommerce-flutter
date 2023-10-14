@@ -13,6 +13,7 @@ import '../presentation/state_holders/product_details_controller.dart';
 import '../presentation/state_holders/product_list_controller.dart';
 import '../presentation/state_holders/product_slider_controller.dart';
 import '../presentation/state_holders/profile_controller.dart';
+import '../presentation/state_holders/review_controller.dart';
 import '../presentation/state_holders/special_product_controller.dart';
 
 class StateHolderBinder extends Bindings {
@@ -32,5 +33,6 @@ class StateHolderBinder extends Bindings {
     Get.put(AddToCartController());
     Get.put(CartController());
     Get.put(ProfileController());
+    Get.put(ReviewController());
   }
 }

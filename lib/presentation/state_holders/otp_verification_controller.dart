@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 
 import '../../data/models/network_response.dart';
@@ -38,6 +40,7 @@ class OtpVerificationController extends GetxController {
     late bool isSuccess;
     _otpVerificationInProgress = true;
     update();
+    log(_tempToken.toString());
     await Future<void>.delayed(
         const Duration(seconds: 3)); //! why need to wait some seco..
     final NetworkResponse response = await NetworkCaller().getRequest(

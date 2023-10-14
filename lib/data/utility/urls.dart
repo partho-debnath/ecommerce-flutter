@@ -19,4 +19,6 @@ class Urls {
       '$_baseUrl/DeleteCartList/$productId';
   static const String readProfile = '$_baseUrl/ReadProfile';
   static const String createProfile = '$_baseUrl/CreateProfile';
+  static String productReviewById(int productId) =>
+      '$_baseUrl/ListReviewByProduct/$productId';
 }
