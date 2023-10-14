@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 
 import '../../data/models/network_response.dart';
 import '../../data/services/network_caller.dart';
 import '../../data/utility/urls.dart';
+import './auth_controller.dart';
 
 class OtpVerificationController extends GetxController {
   bool _otpVerificationInProgress = false;
@@ -46,12 +45,12 @@ class OtpVerificationController extends GetxController {
       loginRequired: true,
       tempToken: _tempToken,
     );
-    log(response.responseJson.toString());
     _otpVerificationInProgress = false;
     update();
 
     if (response.isSuccess) {
       if (response.responseJson!['data'].isNotEmpty == true) {
+        await AuthController.setAccessToken(_tempToken);
         isSuccess = true;
       } else {
         isSuccess = false;
