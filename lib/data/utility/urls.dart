@@ -22,4 +22,9 @@ class Urls {
   static String productReviewById(int productId) =>
       '$_baseUrl/ListReviewByProduct/$productId';
   static String get createReview => '$_baseUrl/CreateProductReview';
+  static String createWishList(int productId) =>
+      '$_baseUrl/CreateWishList/$productId';
+  static String get getWishList => '$_baseUrl/ProductWishList';
+  static String addWishList(int productId) =>
+      '$_baseUrl/CreateWishList/$productId';
 }

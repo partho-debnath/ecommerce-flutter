@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../state_holders/add_to_cart_controller.dart';
 import '../../state_holders/product_details_controller.dart';
+import '../../state_holders/wish_list_controller.dart';
 import '../widgets/product_color_selector.dart';
 import '../widgets/product_image_slider.dart';
 import '../widgets/product_size_selector.dart';
@@ -286,18 +287,38 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
           ),
         ),
-        Card(
-          color: theme.primaryColor,
-          elevation: 4,
-          child: const Padding(
-            padding: EdgeInsets.all(4.0),
-            child: Icon(
-              Icons.favorite_border,
-              size: 16,
-              color: Colors.white,
-            ),
-          ),
-        ),
+        GestureDetector(
+            onTap: () {
+              Get.find<WishListController>()
+                  .addProductToWishlist(widget.productId)
+                  .then((value) {
+                if (value == true) {
+                  Get.snackbar(
+                    'Success!',
+                    'Product added in wishlist',
+                    backgroundColor: Colors.green,
+                  );
+                } else {
+                  Get.snackbar(
+                    'Failed!',
+                    'Product added failed!',
+                    backgroundColor: Colors.red,
+                  );
+                }
+              });
+            },
+            child: Card(
+              color: theme.primaryColor,
+              elevation: 4,
+              child: const Padding(
+                padding: EdgeInsets.all(4.0),
+                child: Icon(
+                  Icons.favorite_border,
+                  size: 16,
+                  color: Colors.white,
+                ),
+              ),
+            )),
       ],
     );
   }
