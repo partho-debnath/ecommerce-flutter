@@ -17,6 +17,7 @@ class NetworkCaller {
   }) async {
     final String token = AuthController.accessToken ?? tempToken;
     try {
+      log(token);
       Response response = await get(
         Uri.parse(url),
         headers: {

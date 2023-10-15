@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../presentation/ui/screens/splash_screen.dart';
 import '../presentation/ui/utility/app_colors.dart';
@@ -16,6 +19,57 @@ class CraftBay extends StatefulWidget {
 }
 
 class _CraftBayState extends State<CraftBay> {
+  late final StreamSubscription<ConnectivityResult>
+      _connectivityResultSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    checkInternetConnectivity();
+    checkInternetConnectivityStatus();
+  }
+
+  @override
+  void dispose() {
+    _connectivityResultSubscription.cancel();
+    super.dispose();
+  }
+
+  Future<void> checkInternetConnectivity() async {
+    final ConnectivityResult connectivityResult =
+        await Connectivity().checkConnectivity();
+    handleConnectivityStates(connectivityResult);
+  }
+
+  void checkInternetConnectivityStatus() {
+    // listen, when connection status is change
+    _connectivityResultSubscription =
+        Connectivity().onConnectivityChanged.listen((connectionResult) {
+      handleConnectivityStates(connectionResult);
+    });
+  }
+
+  void handleConnectivityStates(ConnectivityResult connectionResult) {
+    if (connectionResult != ConnectivityResult.mobile &&
+        connectionResult != ConnectivityResult.wifi) {
+      Get.showSnackbar(const GetSnackBar(
+        title: 'No internet!',
+        message: 'Please check your internet connectivity.',
+        isDismissible: false,
+      ));
+    } else {
+      if (Get.isSnackbarOpen) {
+        Get.closeAllSnackbars();
+      }
+      Get.snackbar(
+        'Connected to internet!',
+        'You are online.',
+        backgroundColor: Colors.green,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

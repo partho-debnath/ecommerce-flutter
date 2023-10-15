@@ -41,8 +41,8 @@ class OtpVerificationController extends GetxController {
     _otpVerificationInProgress = true;
     update();
     log(_tempToken.toString());
-    await Future<void>.delayed(
-        const Duration(seconds: 3)); //! why need to wait some seco..
+    //! why need to wait some seco..
+    await Future<void>.delayed(const Duration(seconds: 3));
     final NetworkResponse response = await NetworkCaller().getRequest(
       Urls.readProfile,
       loginRequired: true,
