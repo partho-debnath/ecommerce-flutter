@@ -20,8 +20,11 @@ class AddToCartController extends GetxController {
       'size': productSize,
     };
     update();
-    final NetworkResponse response =
-        await NetworkCaller().postRequest(Urls.addToCart, requestBody);
+    final NetworkResponse response = await NetworkCaller().postRequest(
+      Urls.addToCart,
+      requestBody,
+      loginRequired: true,
+    );
     _addToCartInProgress = false;
     update();
 

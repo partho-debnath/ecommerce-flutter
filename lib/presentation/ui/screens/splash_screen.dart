@@ -50,11 +50,12 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 3),
     ).then((value) {
-      Get.offAll(
-        () => AuthController.isLoggedIn
-            ? const MainButtomNavBarScreen()
-            : const EmailVerificationScreen(),
-      );
+      Get.offAll(() => const MainButtomNavBarScreen());
+      // Get.offAll(
+      //   () => AuthController.isLoggedIn
+      //       ? const MainButtomNavBarScreen()
+      //       : const EmailVerificationScreen(),
+      // );
     });
   }
 }
