@@ -47,12 +47,14 @@ class _HomeSliderState extends State<HomeSlider> {
                       color: theme.primaryColor.withOpacity(0.7),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    // alignment: Alignment.center,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Image.network(
                           productSliderModel.image,
+                          width: 200.0,
+                          height: 150.0,
+                          fit: BoxFit.cover,
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -61,6 +63,16 @@ class _HomeSliderState extends State<HomeSlider> {
                             FittedBox(
                               child: Text(
                                 productSliderModel.title,
+                                style: const TextStyle(
+                                  fontSize: 16.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            FittedBox(
+                              child: Text(
+                                productSliderModel.price,
                                 style: const TextStyle(
                                   fontSize: 16.0,
                                   color: Colors.white,

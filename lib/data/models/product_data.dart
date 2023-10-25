@@ -1,6 +1,3 @@
-import './brand.dart';
-import './category_data.dart';
-
 class ProductData {
   int? id;
   String? title;
@@ -10,14 +7,12 @@ class ProductData {
   String? discountPrice;
   String? image;
   int? stock;
-  double? star;
+  int? star;
   String? remark;
   int? categoryId;
   int? brandId;
   String? createdAt;
   String? updatedAt;
-  Brand? brand;
-  CategoryData? category;
 
   ProductData({
     this.id,
@@ -34,30 +29,25 @@ class ProductData {
     this.brandId,
     this.createdAt,
     this.updatedAt,
-    this.brand,
-    this.category,
   });
 
   factory ProductData.fromJson(Map<String, dynamic> json) {
     return ProductData(
-        id: json['id'],
-        title: json['title'],
-        shortDes: json['short_des'],
-        price: json['price'],
-        discount: json['discount'],
-        discountPrice: json['discount_price'],
-        image: json['image'],
-        stock: json['stock'],
-        star: json['star'],
-        remark: json['remark'],
-        categoryId: json['category_id'],
-        brandId: json['brand_id'],
-        createdAt: json['created_at'],
-        updatedAt: json['updated_at'],
-        brand: json['brand'] != null ? Brand.fromJson(json['brand']) : null,
-        category: json['category'] != null
-            ? CategoryData.fromJson(json['category'])
-            : null);
+      id: json['id'],
+      title: json['title'],
+      shortDes: json['short_des'],
+      price: json['price'],
+      discount: json['discount'],
+      discountPrice: json['discount_price'],
+      image: json['image'],
+      stock: json['stock'],
+      star: json['star'],
+      remark: json['remark'],
+      categoryId: json['category_id'],
+      brandId: json['brand_id'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -76,12 +66,6 @@ class ProductData {
     data['brand_id'] = brandId;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
-    if (brand != null) {
-      data['brand'] = brand!.toJson();
-    }
-    if (category != null) {
-      data['category'] = category!.toJson();
-    }
     return data;
   }
 }

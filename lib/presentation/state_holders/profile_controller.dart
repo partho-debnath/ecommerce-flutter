@@ -15,21 +15,41 @@ class ProfileController extends GetxController {
   String get errorMessage => _errorMessage;
 
   Future<bool> createProfile({
-    required String firstName,
-    required String lastName,
-    required String mobile,
-    required String city,
-    required String shippingAddress,
+    required String cusName,
+    required String cusAdd,
+    required String cusCity,
+    required String cusState,
+    required String cusPostcode,
+    required String cusCountry,
+    required String cusPhone,
+    required String cusFax,
+    required String shipName,
+    required String shipAdd,
+    required String shipCity,
+    required String shipState,
+    required String shipPostcode,
+    required String shipCountry,
+    required String shipPhone,
   }) async {
     late bool isSuccess;
     _profileCreateInProgress = true;
     update();
     final Map<String, String> profileData = {
-      'firstName': firstName,
-      'lastName': lastName,
-      'mobile': mobile,
-      'city': city,
-      'shippingAddress': shippingAddress,
+      'cus_name': cusName,
+      'cus_add': cusAdd,
+      'cus_city': cusCity,
+      'cus_state': cusState,
+      'cus_postcode': cusPostcode,
+      'cus_country': cusCountry,
+      'cus_phone': cusPhone,
+      'cus_fax': cusFax,
+      'ship_name': shipName,
+      'ship_add': shipAdd,
+      'ship_city': shipCity,
+      'ship_state': shipState,
+      'ship_postcode': shipPostcode,
+      'ship_country': shipCountry,
+      'ship_phone': shipPhone,
     };
 
     final String token = Get.find<OtpVerificationController>().tempToken;

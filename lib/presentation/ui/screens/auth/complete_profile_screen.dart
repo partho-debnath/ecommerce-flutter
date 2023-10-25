@@ -15,20 +15,43 @@ class CompleteProfileScreen extends StatefulWidget {
 
 class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lstNameController = TextEditingController();
-  final TextEditingController mobileNumberController = TextEditingController();
-  final TextEditingController cityController = TextEditingController();
-  final TextEditingController shippingAddressController =
+  final TextEditingController customerNameController = TextEditingController();
+  final TextEditingController customerAddressController =
       TextEditingController();
+  final TextEditingController customerCityController = TextEditingController();
+  final TextEditingController customerStateController = TextEditingController();
+  final TextEditingController customerPostCodeController =
+      TextEditingController();
+  final TextEditingController customerCountryController =
+      TextEditingController();
+  final TextEditingController customerPhoneController = TextEditingController();
+  final TextEditingController customerFaxController = TextEditingController();
+  final TextEditingController shipNameController = TextEditingController();
+  final TextEditingController shipAddressController = TextEditingController();
+  final TextEditingController shipCityController = TextEditingController();
+  final TextEditingController shipStateController = TextEditingController();
+  final TextEditingController shipPostCodeController = TextEditingController();
+  final TextEditingController shipCountryController = TextEditingController();
+  final TextEditingController shipPhoneController = TextEditingController();
 
   @override
   void dispose() {
-    firstNameController.dispose();
-    lstNameController.dispose();
-    mobileNumberController.dispose();
-    cityController.dispose();
-    shippingAddressController.dispose();
+    customerNameController.dispose();
+    customerAddressController.dispose();
+    customerCityController.dispose();
+    customerStateController.dispose();
+    customerPostCodeController.dispose();
+    customerCountryController.dispose();
+    customerPhoneController.dispose();
+    customerFaxController.dispose();
+    shipNameController.dispose();
+    shipAddressController.dispose();
+    shipCityController.dispose();
+    shipStateController.dispose();
+    shipPostCodeController.dispose();
+    shipCountryController.dispose();
+    shipPhoneController.dispose();
+
     super.dispose();
   }
 
@@ -69,90 +92,271 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
-                        controller: firstNameController,
+                        controller: customerNameController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.person),
                           prefixIconColor: theme.primaryColor,
-                          hintText: 'First Name',
+                          hintText: 'Your name',
                         ),
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.next,
-                        validator: (String? firstName) {
-                          if (firstName?.isEmpty ?? true) {
-                            return 'Please Enter Your First Name.';
+                        validator: (String? customerName) {
+                          if (customerName?.isEmpty ?? true) {
+                            return 'Enter your name.';
                           }
                           return null;
                         },
                       ),
                       const SizedBox(height: 15),
                       TextFormField(
-                        controller: lstNameController,
+                        controller: customerStateController,
                         decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.person),
+                          prefixIcon: const Icon(Icons.map),
                           prefixIconColor: theme.primaryColor,
-                          hintText: 'Last Name',
+                          hintText: 'Your state',
                         ),
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.next,
-                        validator: (String? lastName) {
-                          if (lastName?.isEmpty ?? true) {
-                            return 'Please Enter Your Last Name.';
+                        validator: (String? customerState) {
+                          if (customerState?.isEmpty ?? true) {
+                            return 'Enter youur state';
                           }
                           return null;
                         },
                       ),
                       const SizedBox(height: 15),
                       TextFormField(
-                        controller: mobileNumberController,
+                        controller: customerCityController,
                         decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.phone),
+                          prefixIcon: const Icon(Icons.map),
                           prefixIconColor: theme.primaryColor,
-                          hintText: 'Mobile',
+                          hintText: 'Your City',
                         ),
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.next,
-                        validator: (String? mobileNo) {
-                          if (mobileNo?.isEmpty ?? true) {
-                            return 'Please Enter Your Mobile Number';
+                        validator: (String? customerCity) {
+                          if (customerCity?.isEmpty ?? true) {
+                            return 'Enter your city name';
                           }
                           return null;
                         },
                       ),
                       const SizedBox(height: 15),
                       TextFormField(
-                        controller: cityController,
+                        controller: customerPostCodeController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.numbers),
+                          prefixIconColor: theme.primaryColor,
+                          hintText: 'Your post code',
+                        ),
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.next,
+                        validator: (String? customerPostCode) {
+                          if (customerPostCode?.isEmpty ?? true) {
+                            return 'Enter your post code';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      TextFormField(
+                        controller: customerCountryController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.map_sharp),
+                          prefixIconColor: theme.primaryColor,
+                          hintText: 'Your country name',
+                        ),
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.next,
+                        validator: (String? customerCountryName) {
+                          if (customerCountryName?.isEmpty ?? true) {
+                            return 'Enter your country name';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      TextFormField(
+                        controller: customerAddressController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.location_city),
                           prefixIconColor: theme.primaryColor,
-                          hintText: 'City',
-                        ),
-                        keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.next,
-                        validator: (String? city) {
-                          if (city?.isEmpty ?? true) {
-                            return 'Please Enter Your City Name';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 15),
-                      TextFormField(
-                        controller: shippingAddressController,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.local_shipping),
-                          prefixIconColor: theme.primaryColor,
-                          hintText: 'Shipping Address',
+                          hintText: 'Your address',
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 16,
                             vertical: 16,
                           ),
                         ),
+                        maxLines: 3,
                         keyboardType: TextInputType.multiline,
                         textInputAction: TextInputAction.newline,
+                        validator: (String? customerAddress) {
+                          if (customerAddress?.isEmpty ?? true) {
+                            return 'Enter your address';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      TextFormField(
+                        controller: customerPhoneController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.phone),
+                          prefixIconColor: theme.primaryColor,
+                          hintText: 'Your phone number',
+                        ),
+                        keyboardType: TextInputType.phone,
+                        textInputAction: TextInputAction.next,
+                        maxLength: 15,
+                        validator: (String? customerPhone) {
+                          if (customerPhone?.isEmpty ?? true) {
+                            return 'Enter your phone No.';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      TextFormField(
+                        controller: customerFaxController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.fax),
+                          prefixIconColor: theme.primaryColor,
+                          hintText: 'Your Fax',
+                        ),
+                        keyboardType: TextInputType.number,
+                        textInputAction: TextInputAction.next,
+                        validator: (String? customerFax) {
+                          if (customerFax?.isEmpty ?? true) {
+                            return 'Enter your Fax';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      TextFormField(
+                        controller: shipNameController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.person),
+                          prefixIconColor: theme.primaryColor,
+                          hintText: 'Shiping name',
+                        ),
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.next,
+                        validator: (String? shipingName) {
+                          if (shipingName?.isEmpty ?? true) {
+                            return 'Enter shiping name.';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      TextFormField(
+                        controller: shipStateController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.map),
+                          prefixIconColor: theme.primaryColor,
+                          hintText: 'Shiping state',
+                        ),
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.next,
+                        validator: (String? shipingState) {
+                          if (shipingState?.isEmpty ?? true) {
+                            return 'Enter shiping state';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      TextFormField(
+                        controller: shipCityController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.map_sharp),
+                          prefixIconColor: theme.primaryColor,
+                          hintText: 'Shiping city name',
+                        ),
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.next,
+                        validator: (String? shipingCity) {
+                          if (shipingCity?.isEmpty ?? true) {
+                            return 'Shiping city name';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      TextFormField(
+                        controller: shipPostCodeController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.numbers),
+                          prefixIconColor: theme.primaryColor,
+                          hintText: 'Shiping post code',
+                        ),
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.next,
+                        validator: (String? shipingPostCode) {
+                          if (shipingPostCode?.isEmpty ?? true) {
+                            return 'Shiping post code';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      TextFormField(
+                        controller: shipCountryController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.map_sharp),
+                          prefixIconColor: theme.primaryColor,
+                          hintText: 'Shiping country name',
+                        ),
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.next,
+                        validator: (String? shipingCountry) {
+                          if (shipingCountry?.isEmpty ?? true) {
+                            return 'Enter shiping country name';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      TextFormField(
+                        controller: shipPhoneController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.call),
+                          prefixIconColor: theme.primaryColor,
+                          hintText: 'Shiping phone',
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 16,
+                          ),
+                        ),
+                        maxLength: 15,
+                        keyboardType: TextInputType.phone,
+                        textInputAction: TextInputAction.next,
+                        validator: (String? shipingPhone) {
+                          if (shipingPhone?.isEmpty ?? true) {
+                            return 'Enter shiping phone no.';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      TextFormField(
+                        controller: shipAddressController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.location_city),
+                          prefixIconColor: theme.primaryColor,
+                          hintText: 'Shiping sddress',
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 16,
+                          ),
+                        ),
                         maxLines: 3,
-                        validator: (String? address) {
-                          if (address?.isEmpty ?? true) {
-                            return 'Please Enter Shipping Address';
+                        keyboardType: TextInputType.multiline,
+                        textInputAction: TextInputAction.newline,
+                        validator: (String? shipingAddress) {
+                          if (shipingAddress?.isEmpty ?? true) {
+                            return 'Enter shiping address';
                           }
                           return null;
                         },
@@ -175,12 +379,21 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                         }
                         bool isProfileCreationSuccess =
                             await profileController.createProfile(
-                          firstName: firstNameController.text.trim(),
-                          lastName: lstNameController.text.trim(),
-                          mobile: mobileNumberController.text.trim(),
-                          city: cityController.text.trim(),
-                          shippingAddress:
-                              shippingAddressController.text.trim(),
+                          cusName: customerNameController.text.trim(),
+                          cusAdd: customerAddressController.text.trim(),
+                          cusCity: customerCityController.text.trim(),
+                          cusCountry: customerCountryController.text.trim(),
+                          cusFax: customerFaxController.text.trim(),
+                          cusState: customerStateController.text.trim(),
+                          cusPostcode: customerPostCodeController.text.trim(),
+                          cusPhone: customerPhoneController.text.trim(),
+                          shipName: shipNameController.text.trim(),
+                          shipPostcode: shipPostCodeController.text.trim(),
+                          shipCity: shipCityController.text.trim(),
+                          shipCountry: shipCountryController.text.trim(),
+                          shipState: shipStateController.text.trim(),
+                          shipPhone: shipPhoneController.text.trim(),
+                          shipAdd: shipAddressController.text.trim(),
                         );
                         if (isProfileCreationSuccess == true) {
                           _formKey.currentState!.reset();

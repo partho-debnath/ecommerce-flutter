@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:get/get.dart';
@@ -13,12 +14,14 @@ class ProductDetailsController extends GetxController {
   bool _getProductDetailsIsInProgress = false;
   ProductDetails _productDetails = ProductDetails();
   final List<Color> _availableColors = [];
+  List<String> _availableColorsAsString = [];
   List<String>? _availableSizes;
   String _errorMessage = '';
 
   bool get getProductDetailsIsInProgress => _getProductDetailsIsInProgress;
   ProductDetails get productDetails => _productDetails;
   List<Color> get availableColors => _availableColors;
+  List<String> get availableColorsAsString => _availableColorsAsString;
   List<String>? get availableSizes => _availableSizes;
   String get errorMessage => _errorMessage;
 
@@ -36,7 +39,10 @@ class ProductDetailsController extends GetxController {
           ProductDetailsModel.fromJson(networkResponse.responseJson ?? {})
               .data!
               .first;
-      _convertStringToColors(_productDetails.color ?? '');
+      log('----------');
+      log(_productDetails.id.toString());
+      // _convertStringToColors(_productDetails.color ?? '');
+      _availableColorsAsString = _productDetails.color?.split(',') ?? [];
       _convertStringToSizes(_productDetails.size ?? '');
       update();
       return true;

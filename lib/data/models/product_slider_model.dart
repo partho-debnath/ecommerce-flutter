@@ -2,6 +2,7 @@ class ProductSliderModel {
   int id;
   String title;
   String shortDes;
+  String price;
   String image;
   int productId;
   String createdAt;
@@ -15,6 +16,7 @@ class ProductSliderModel {
     required this.productId,
     required this.createdAt,
     required this.updatedAt,
+    required this.price,
   });
 
   factory ProductSliderModel.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class ProductSliderModel {
       productId: json['product_id'],
       createdAt: json['created_at'],
       updatedAt: json['updated_at'],
+      price: json['price'],
     );
   }
 
@@ -38,6 +41,7 @@ class ProductSliderModel {
     productslidermodel['product_id'] = productId;
     productslidermodel['created_at'] = createdAt;
     productslidermodel['updated_at'] = updatedAt;
+    productslidermodel['price'] = price;
     return productslidermodel;
   }
 }

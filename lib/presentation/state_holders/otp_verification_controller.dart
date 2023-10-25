@@ -52,7 +52,7 @@ class OtpVerificationController extends GetxController {
     update();
 
     if (response.isSuccess) {
-      if (response.responseJson!['data'].isNotEmpty == true) {
+      if (response.responseJson!['data'] != null) {
         await AuthController.setAccessToken(_tempToken);
         isSuccess = true;
       } else {

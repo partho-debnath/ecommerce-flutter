@@ -28,6 +28,7 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int _selectedColorIndex = 0;
   int _selectedSizeIndex = 0;
+  int _quantity = 1;
 
   @override
   void initState() {
@@ -108,25 +109,37 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     lowerLimit: 1,
                     upperLimit: 10,
                     onChange: (value) {
+                      _quantity = value;
                       log(value.toString());
                     },
                   ),
                 ],
               ),
               productReview(
-                productDetailsController.productDetails.product?.star ?? 0.0,
+                productDetailsController.productDetails.product?.star ?? 0,
                 theme,
               ),
               contentHeader(title: 'Color'),
               const SizedBox(height: 10),
+              // SizedBox(
+              //   height: 28,
+              //   child: ProductColorSelector(
+              //     colors: productDetailsController.availableColors,
+              //     onChangeColor: (color, index) {
+              //       log(index.toString());
+              //       _selectedColorIndex = index;
+              //       // color.toHex();
+              //     },
+              //   ),
+              // ),
               SizedBox(
-                height: 28,
-                child: ProductColorSelector(
-                  colors: productDetailsController.availableColors,
-                  onChangeColor: (color, index) {
-                    log(index.toString());
+                height: 30,
+                child: ProductSizeSelector(
+                  sizes: productDetailsController.availableColorsAsString ?? [],
+                  selectedColor: theme.primaryColor,
+                  onChangeSize: (sizeLabel, index) {
                     _selectedColorIndex = index;
-                    // color.toHex();
+                    log(index.toString());
                   },
                 ),
               ),
@@ -149,7 +162,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               contentHeader(title: 'Description'),
               const SizedBox(height: 10),
               Text(
-                productDetailsController.productDetails.product?.shortDes ?? '',
+                productDetailsController.productDetails.des ?? '',
                 textScaleFactor: 1.2,
               ),
             ],
@@ -217,10 +230,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         .addToCart(
                       productDetailsController.productDetails.id!,
                       productDetailsController
-                          .availableColors[_selectedColorIndex]
-                          .toHex(),
+                          .availableColorsAsString[_selectedColorIndex],
                       productDetailsController
                           .availableSizes![_selectedSizeIndex],
+                      _quantity,
                     )
                         .then((value) {
                       if (value == false) {
@@ -253,7 +266,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Row productReview(double productRating, ThemeData theme) {
+  Row productReview(int productRating, ThemeData theme) {
     return Row(
       children: <Widget>[
         Wrap(

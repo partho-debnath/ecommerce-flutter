@@ -11,13 +11,14 @@ class AddToCartController extends GetxController {
   bool get addToCartInProgress => _addToCartInProgress;
   String get message => _errorMessage;
 
-  Future<bool> addToCart(
-      int productId, String productColor, String productSize) async {
+  Future<bool> addToCart(int productId, String productColor, String productSize,
+      int productQty) async {
     _addToCartInProgress = true;
     final Map<String, dynamic> requestBody = {
       'product_id': productId,
       'color': productColor,
       'size': productSize,
+      'qty': productQty,
     };
     update();
     final NetworkResponse response = await NetworkCaller().postRequest(

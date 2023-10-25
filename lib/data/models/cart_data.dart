@@ -2,7 +2,7 @@ import './product_data.dart';
 
 class CartData {
   int? id;
-  String? email;
+  int? userId;
   int? productId;
   String? color;
   String? size;
@@ -13,7 +13,7 @@ class CartData {
 
   CartData({
     this.id,
-    this.email,
+    this.userId,
     this.productId,
     this.color,
     this.size,
@@ -25,20 +25,20 @@ class CartData {
   factory CartData.fromJson(Map<String, dynamic> json) {
     return CartData(
       id: json['id'],
-      email: json['email'],
+      userId: json['user_id'],
       productId: json['product_id'],
       color: json['color'],
       size: json['size'],
       createdAt: json['created_at'],
       updatedAt: json['updated_at'],
-      product: json['product'],
+      product: ProductData.fromJson(json['product']),
     );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> cartData = {};
     cartData['id'] = id;
-    cartData['email'] = email;
+    cartData['user_id'] = userId;
     cartData['product_id'] = productId;
     cartData['color'] = color;
     cartData['size'] = size;
