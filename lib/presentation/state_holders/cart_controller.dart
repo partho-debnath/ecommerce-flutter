@@ -59,18 +59,18 @@ class CartController extends GetxController {
     _cartModel.data!.removeWhere((cartData) => cartData.productId == productId);
   }
 
-  void increaseProductQuantityInCart(int productId) {
-    _cartModel.data!
-        .firstWhere((cartData) => cartData.productId == productId)
-        .quantity += 1;
-    update();
-  }
+  // void increaseProductQuantityInCart(int productId) {
+  //   _cartModel.data!
+  //       .firstWhere((cartData) => cartData.productId == productId)
+  //       .quantity += 1;
+  //   update();
+  // }
 
-  void decreaseProductQuantityInCart(int productId) {
-    _cartModel.data!
-        .firstWhere((cartData) =>
-            cartData.productId == productId && cartData.quantity > 1)
-        .quantity -= 1;
-    update();
-  }
+  // void decreaseProductQuantityInCart(int productId) {
+  //   _cartModel.data!
+  //       .firstWhere((cartData) =>
+  //           cartData.productId == productId && cartData.quantity > 1)
+  //       .quantity -= 1;
+  //   update();
+  // }
 }

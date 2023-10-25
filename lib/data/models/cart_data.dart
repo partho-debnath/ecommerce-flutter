@@ -9,7 +9,7 @@ class CartData {
   String? createdAt;
   String? updatedAt;
   ProductData? product;
-  int quantity = 0;
+  int? quantity;
 
   CartData({
     this.id,
@@ -20,6 +20,7 @@ class CartData {
     this.createdAt,
     this.updatedAt,
     this.product,
+    this.quantity,
   });
 
   factory CartData.fromJson(Map<String, dynamic> json) {
@@ -29,6 +30,7 @@ class CartData {
       productId: json['product_id'],
       color: json['color'],
       size: json['size'],
+      quantity: int.parse(json['qty']),
       createdAt: json['created_at'],
       updatedAt: json['updated_at'],
       product: ProductData.fromJson(json['product']),
@@ -42,6 +44,7 @@ class CartData {
     cartData['product_id'] = productId;
     cartData['color'] = color;
     cartData['size'] = size;
+    cartData['qty'] = quantity.toString();
     cartData['created_at'] = createdAt;
     cartData['updated_at'] = updatedAt;
     cartData['product'] = product;

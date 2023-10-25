@@ -87,7 +87,7 @@ class ProductCartItem extends StatelessWidget {
                           color: theme.primaryColor,
                           lowerLimit: 1,
                           upperLimit: 10,
-                          startingValue: 1,
+                          startingValue: cartData.quantity ?? 1,
                           stepValue: 1,
                           onChange: (value) {},
                         ),
