@@ -9,11 +9,14 @@ class ProductCartItem extends StatelessWidget {
   final ThemeData theme;
   final CartData cartData;
   final VoidCallback onDelete;
+  final void Function(int cartId, int quantity) onChangeProductQuantity;
+
   const ProductCartItem({
     super.key,
     required this.theme,
     required this.cartData,
     required this.onDelete,
+    required this.onChangeProductQuantity,
   });
 
   @override
@@ -46,14 +49,14 @@ class ProductCartItem extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           RichText(
-                            text: const TextSpan(
-                              style: TextStyle(
+                            text: TextSpan(
+                              style: const TextStyle(
                                 color: Colors.black54,
                                 fontSize: 12,
                               ),
                               children: <TextSpan>[
-                                TextSpan(text: 'Color: Black, '),
-                                TextSpan(text: 'Size: XL'),
+                                TextSpan(text: 'Color: ${cartData.color}, '),
+                                TextSpan(text: 'Size: ${cartData.size}'),
                               ],
                             ),
                           ),
@@ -73,7 +76,7 @@ class ProductCartItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      '\$100',
+                      '\$${cartData.price}',
                       style: TextStyle(
                         color: theme.primaryColor,
                         fontSize: 18,
@@ -89,7 +92,10 @@ class ProductCartItem extends StatelessWidget {
                           upperLimit: 10,
                           startingValue: cartData.quantity ?? 1,
                           stepValue: 1,
-                          onChange: (value) {},
+                          onChange: (quantity) {
+                            onChangeProductQuantity(
+                                cartData.productId!, quantity);
+                          },
                         ),
                       ),
                     ),

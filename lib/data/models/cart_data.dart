@@ -6,6 +6,7 @@ class CartData {
   int? productId;
   String? color;
   String? size;
+  String? price;
   String? createdAt;
   String? updatedAt;
   ProductData? product;
@@ -17,6 +18,7 @@ class CartData {
     this.productId,
     this.color,
     this.size,
+    this.price,
     this.createdAt,
     this.updatedAt,
     this.product,
@@ -30,6 +32,7 @@ class CartData {
       productId: json['product_id'],
       color: json['color'],
       size: json['size'],
+      price: json['price'],
       quantity: int.parse(json['qty']),
       createdAt: json['created_at'],
       updatedAt: json['updated_at'],
@@ -45,6 +48,7 @@ class CartData {
     cartData['color'] = color;
     cartData['size'] = size;
     cartData['qty'] = quantity.toString();
+    cartData['price'] = price;
     cartData['created_at'] = createdAt;
     cartData['updated_at'] = updatedAt;
     cartData['product'] = product;

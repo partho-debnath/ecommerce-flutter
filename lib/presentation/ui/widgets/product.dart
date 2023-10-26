@@ -63,7 +63,7 @@ class Product extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          '\$${product.price ?? 0.0}',
+                          product.price!,
                           style: TextStyle(
                             fontSize: 13,
                             color: theme.primaryColor,

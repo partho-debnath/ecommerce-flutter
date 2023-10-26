@@ -66,6 +66,10 @@ class _CartScreenState extends State<CartScreen> {
                           await cartController.deleteCart(
                               cartController.cartModel.data![index].productId!);
                         },
+                        onChangeProductQuantity: (int productId, int quantity) {
+                          cartController.changeProductQuantityInCart(
+                              productId, quantity);
+                        },
                       );
                     },
                   ),
@@ -104,7 +108,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
               const SizedBox(height: 4),
               Text(
-                totalPrice.toStringAsFixed(2),
+                totalPrice.toStringAsFixed(1),
                 style: TextStyle(
                   fontSize: 18,
                   color: theme.primaryColor,

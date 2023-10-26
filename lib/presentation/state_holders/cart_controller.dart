@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../../data/models/cart_data.dart';
 import '../../data/models/cart_model.dart';
 import '../../data/models/network_response.dart';
 import '../../data/services/network_caller.dart';
@@ -25,6 +26,7 @@ class CartController extends GetxController {
 
     if (networkResponse.isSuccess) {
       _cartModel = CartModel.fromJson(networkResponse.responseJson!);
+      _calculateTotalPrice();
       isSuccess = true;
     } else {
       _errorMessage = 'Get cart list failed.';
@@ -55,22 +57,28 @@ class CartController extends GetxController {
     return isSuccess;
   }
 
+  void _calculateTotalPrice() {
+    _totalPrice = 0.0;
+    for (CartData cart in _cartModel.data ?? []) {
+      _totalPrice += double.parse(cart.price!);
+    }
+    update();
+  }
+
   void _removeProductFromCartList(int productId) {
+    final CartData cart = _cartModel.data!
+        .firstWhere((cartData) => cartData.productId == productId);
+    _totalPrice -= double.parse(cart.price!);
     _cartModel.data!.removeWhere((cartData) => cartData.productId == productId);
   }
 
-  // void increaseProductQuantityInCart(int productId) {
-  //   _cartModel.data!
-  //       .firstWhere((cartData) => cartData.productId == productId)
-  //       .quantity += 1;
-  //   update();
-  // }
-
-  // void decreaseProductQuantityInCart(int productId) {
-  //   _cartModel.data!
-  //       .firstWhere((cartData) =>
-  //           cartData.productId == productId && cartData.quantity > 1)
-  //       .quantity -= 1;
-  //   update();
-  // }
+  void changeProductQuantityInCart(int productId, int quantity) {
+    final CartData cart = _cartModel.data!
+        .firstWhere((cartData) => cartData.productId == productId);
+    cart.quantity = quantity;
+    cart.price = (cart.quantity! * double.parse(cart.product!.price!))
+        .toStringAsFixed(0);
+    _calculateTotalPrice();
+    update();
+  }
 }

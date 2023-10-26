@@ -135,7 +135,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               SizedBox(
                 height: 30,
                 child: ProductSizeSelector(
-                  sizes: productDetailsController.availableColorsAsString ?? [],
+                  sizes: productDetailsController.availableColorsAsString,
                   selectedColor: theme.primaryColor,
                   onChangeSize: (sizeLabel, index) {
                     _selectedColorIndex = index;
@@ -200,7 +200,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               const SizedBox(height: 4),
               Text(
-                '\$12000',
+                '\$${productDetailsController.productDetails.product?.price}',
                 style: TextStyle(
                   fontSize: 18,
                   color: theme.primaryColor,
