@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:numberpicker/numberpicker.dart';
 
 import '../../state_holders/review_controller.dart';
 
@@ -14,14 +15,13 @@ class CreateReviewScreen extends StatefulWidget {
 
 class _CreateReviewScreenState extends State<CreateReviewScreen> {
   final GlobalKey<FormState> form = GlobalKey<FormState>();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController ratingController =
+      TextEditingController(text: '1');
   final TextEditingController reviewTextController = TextEditingController();
 
   @override
   void dispose() {
-    firstNameController.dispose();
-    lastNameController.dispose();
+    ratingController.dispose();
     reviewTextController.dispose();
     super.dispose();
   }
@@ -47,32 +47,33 @@ class _CreateReviewScreenState extends State<CreateReviewScreen> {
             key: form,
             child: Column(
               children: <Widget>[
-                customTextFormField(
-                  hintText: 'First Name',
-                  controller: firstNameController,
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.next,
-                  theme: theme,
-                  validator: (value) {
-                    if (value?.isEmpty ?? true) {
-                      return 'Enter your First Name';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
-                customTextFormField(
-                  hintText: 'Last Name',
-                  controller: lastNameController,
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.next,
-                  theme: theme,
-                  validator: (value) {
-                    if (value?.isEmpty ?? true) {
-                      return 'Enter your Last Name';
-                    }
-                    return null;
-                  },
+                Tooltip(
+                  richMessage: TextSpan(
+                    text: 'Select Rating, ',
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'Slide Right to Left.',
+                        style: TextStyle(
+                          color: theme.primaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  child: NumberPicker(
+                    haptics: true,
+                    minValue: 1,
+                    maxValue: 5,
+                    value: int.parse(ratingController.text),
+                    onChanged: (value) {
+                      ratingController.text = '$value';
+                      setState(() {});
+                    },
+                    axis: Axis.horizontal,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: theme.primaryColor),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 16),
                 customTextFormField(
@@ -105,8 +106,11 @@ class _CreateReviewScreenState extends State<CreateReviewScreen> {
                           return;
                         }
                         reviewController
-                            .addReview(widget.productId,
-                                reviewTextController.text.trim())
+                            .addReview(
+                          productId: widget.productId,
+                          review: reviewTextController.text.trim(),
+                          productRating: ratingController.text.trim(),
+                        )
                             .then((value) {
                           if (value == true) {
                             Get.back(result: true);
@@ -143,7 +147,7 @@ class _CreateReviewScreenState extends State<CreateReviewScreen> {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.all(10),
+        contentPadding: const EdgeInsets.all(15),
         hintText: hintText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),

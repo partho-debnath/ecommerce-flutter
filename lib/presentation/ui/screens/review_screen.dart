@@ -1,7 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../state_holders/review_controller.dart';
 import './create_review_screen.dart';
@@ -66,8 +68,14 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     separatorBuilder: (cntxt, index) => const Divider(),
                     itemBuilder: (cntxt, index) {
                       return review(
-                        "${reviewController.reviewModel.data?[index].profile?.firstName ?? 'Unknown'} ${reviewController.reviewModel.data?[index].profile?.lastName ?? ''}",
-                        "${reviewController.reviewModel.data?[index].description}",
+                        reviewController
+                                .reviewModel.data?[index].profile?.cusName ??
+                            'Unknown',
+                        reviewController.reviewModel.data?[index].description ??
+                            '..',
+                        reviewController.reviewModel.data?[index].rating ??
+                            '0.0',
+                        reviewController.reviewModel.data![index].updatedAt!,
                       );
                     },
                   ),
@@ -112,22 +120,37 @@ class _ReviewScreenState extends State<ReviewScreen> {
     );
   }
 
-  ListTile review(String name, String review) {
+  ListTile review(String name, String review, String reviewRating,
+      String reviewUpdatedTime) {
     return ListTile(
-      title: Row(
-        mainAxisSize: MainAxisSize.min,
+      leading: const CircleAvatar(child: Icon(Icons.person)),
+      title: Text(name),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Icon(Icons.person),
-          const SizedBox(width: 10),
-          Text(name),
+          const SizedBox(height: 5),
+          Text(
+            review,
+            style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                  fontSize: 16,
+                  color: Colors.black87,
+                ),
+          ),
+          const SizedBox(height: 5),
+          Text(DateFormat.yMd().format(DateTime.parse(reviewUpdatedTime))),
         ],
-      ),
-      subtitle: Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: Text(review),
       ),
       subtitleTextStyle: const TextStyle(
         fontSize: 14,
+      ),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(reviewRating),
+          const SizedBox(width: 10),
+          Icon(reviewRating == '5' ? Icons.star : Icons.star_half,
+              color: Colors.yellow),
+        ],
       ),
     );
   }

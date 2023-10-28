@@ -3,7 +3,6 @@ import 'review_data.dart';
 class ReviewModel {
   String? msg;
   List<ReviewData>? data;
-
   ReviewModel({this.msg, this.data});
 
   ReviewModel.fromJson(Map<String, dynamic> json) {

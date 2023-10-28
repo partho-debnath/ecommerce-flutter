@@ -35,13 +35,17 @@ class ReviewController extends GetxController {
     return isSuccess;
   }
 
-  Future<bool> addReview(int productId, String review) async {
+  Future<bool> addReview(
+      {required int productId,
+      required String review,
+      required String productRating}) async {
     late bool isSuccess;
     _getReviewIsInProgress = true;
     update();
     final Map<String, dynamic> reviewData = {
       "product_id": productId,
       "description": review,
+      "rating": int.parse(productRating),
     };
     final NetworkResponse networkResponse = await NetworkCaller().postRequest(
       Urls.createReview,
