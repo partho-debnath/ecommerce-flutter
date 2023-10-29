@@ -29,7 +29,7 @@ class ProductCartItem extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             height: 100,
             width: 100,
-            child: const FlutterLogo(),
+            child: Image.network(cartData.product!.image!),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -41,9 +41,9 @@ class ProductCartItem extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          const Text(
-                            'This is product GHG7JHG',
-                            style: TextStyle(
+                          Text(
+                            cartData.product!.title!,
+                            style: const TextStyle(
                               fontSize: 16,
                             ),
                           ),

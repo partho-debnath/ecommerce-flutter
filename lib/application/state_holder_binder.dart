@@ -4,6 +4,7 @@ import '../presentation/state_holders/add_to_cart_controller.dart';
 import '../presentation/state_holders/cart_controller.dart';
 import '../presentation/state_holders/category_controller.dart';
 import '../presentation/state_holders/complete_profile_controller.dart';
+import '../presentation/state_holders/create_invoice_controller.dart';
 import '../presentation/state_holders/email_verification_controller.dart';
 import '../presentation/state_holders/main_bottom_nav_controller.dart';
 import '../presentation/state_holders/new_product_controller.dart';
@@ -36,5 +37,6 @@ class StateHolderBinder extends Bindings {
     Get.put(ProfileController());
     Get.put(ReviewController());
     Get.put(WishListController());
+    Get.put(CreateInvoiceController());
   }
 }

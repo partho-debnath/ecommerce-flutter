@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../state_holders/cart_controller.dart';
 import '../../state_holders/main_bottom_nav_controller.dart';
 import '../widgets/product_cart_item.dart';
+import './checkout_screen.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -120,7 +121,9 @@ class _CartScreenState extends State<CartScreen> {
           SizedBox(
             width: 140,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => const CheckoutScreen());
+              },
               child: const Text('Checkout'),
             ),
           ),

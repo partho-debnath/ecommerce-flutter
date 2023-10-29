@@ -27,4 +27,5 @@ class Urls {
   static String get getWishList => '$_baseUrl/ProductWishList';
   static String addWishList(int productId) =>
       '$_baseUrl/CreateWishList/$productId';
+  static String createInvoice = '$_baseUrl/InvoiceCreate';
 }
