@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/product_data.dart';
+import '../../state_holders/wish_list_controller.dart';
 import '../screens/product_details_screen.dart';
 
 class Product extends StatelessWidget {
   final ProductData product;
+  final bool isFavorite;
   final ThemeData theme;
   const Product({
     super.key,
     required this.theme,
     required this.product,
+    this.isFavorite = false,
   });
 
   @override
@@ -89,15 +92,34 @@ class Product extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Card(
-                          color: theme.primaryColor,
-                          elevation: 4,
-                          child: const Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Icon(
-                              Icons.favorite_border,
-                              size: 16,
-                              color: Colors.white,
+                        InkWell(
+                          onTap: () {
+                            if (isFavorite == true) {
+                              Get.find<WishListController>()
+                                  .removeProductFromWishlist(product.id!);
+                            } else {
+                              Get.find<WishListController>()
+                                  .addProductToWishlist(product.id!);
+                            }
+                          },
+                          child: Card(
+                            color: theme.primaryColor,
+                            elevation: 4,
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Visibility(
+                                visible: isFavorite == true,
+                                replacement: const Icon(
+                                  Icons.favorite_border,
+                                  size: 16,
+                                  color: Colors.white,
+                                ),
+                                child: const Icon(
+                                  Icons.favorite,
+                                  size: 16,
+                                  color: Colors.red,
+                                ),
+                              ),
                             ),
                           ),
                         ),

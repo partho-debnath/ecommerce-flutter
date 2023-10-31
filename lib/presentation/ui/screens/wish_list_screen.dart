@@ -2,11 +2,26 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../data/models/product_data.dart';
 import '../../state_holders/main_bottom_nav_controller.dart';
+import '../../state_holders/wish_list_controller.dart';
 import '../widgets/product.dart';
 
-class WishListScreen extends StatelessWidget {
+class WishListScreen extends StatefulWidget {
   const WishListScreen({super.key});
+
+  @override
+  State<WishListScreen> createState() => _WishListScreenState();
+}
+
+class _WishListScreenState extends State<WishListScreen> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Get.find<WishListController>().getWishList();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,23 +41,39 @@ class WishListScreen extends StatelessWidget {
             style: TextStyle(color: Colors.black54),
           ),
         ),
-        body: GridView.builder(
-          padding: const EdgeInsets.all(5.0),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 5,
-            mainAxisSpacing: 5,
-            childAspectRatio: 2.3 / 3,
-          ),
-          itemCount: 14,
-          itemBuilder: (cntxt, index) {
-            return Text('---');
-            // return FittedBox(
-            //   child: Product(
-            //     product: ,
-            //     theme: theme,
-            //   ),
-            // );
+        body: GetBuilder<WishListController>(
+          builder: (wishListController) {
+            if (wishListController.getWishListIsInProgress) {
+              return const Center(child: CircularProgressIndicator.adaptive());
+            } else if (wishListController.wishListModel.data?.isEmpty ?? true) {
+              return Center(
+                child: Text(
+                  'Empty wishlist.',
+                  style: theme.textTheme.displaySmall?.copyWith(fontSize: 25),
+                ),
+              );
+            }
+            return GridView.builder(
+              padding: const EdgeInsets.all(5.0),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5,
+                childAspectRatio: 2.3 / 3,
+              ),
+              itemCount: wishListController.wishListModel.data?.length ?? 0,
+              itemBuilder: (cntxt, index) {
+                final ProductData productData =
+                    wishListController.wishListModel.data![index].product!;
+                return FittedBox(
+                  child: Product(
+                    product: productData,
+                    isFavorite: true,
+                    theme: theme,
+                  ),
+                );
+              },
+            );
           },
         ),
       ),

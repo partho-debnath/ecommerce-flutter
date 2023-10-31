@@ -12,7 +12,7 @@ class WishListController extends GetxController {
 
   bool get getWishListIsInProgress => _getWishListIsInProgress;
   String get errorMessage => _errorMessage;
-  WishListModel get reviewModel => _wishListModel;
+  WishListModel get wishListModel => _wishListModel;
 
   Future<bool> getWishList() async {
     late bool isSuccess;
@@ -25,7 +25,8 @@ class WishListController extends GetxController {
     update();
 
     if (networkResponse.isSuccess) {
-      // _wishListModel = WishListModel.fromJson(networkResponse.responseJson ?? {});
+      _wishListModel =
+          WishListModel.fromJson(networkResponse.responseJson ?? {});
       isSuccess = true;
     } else {
       _errorMessage = 'Wishlist data fetch failed';
@@ -47,6 +48,29 @@ class WishListController extends GetxController {
     update();
 
     if (networkResponse.isSuccess) {
+      isSuccess = true;
+    } else {
+      _errorMessage = 'Product add to wishlist failed!';
+      isSuccess = false;
+    }
+    update();
+    return isSuccess;
+  }
+
+  Future<bool> removeProductFromWishlist(int productId) async {
+    late bool isSuccess;
+    _getWishListIsInProgress = true;
+    update();
+    final NetworkResponse networkResponse = await NetworkCaller().getRequest(
+      Urls.removeWishList(productId),
+      loginRequired: true,
+    );
+    _getWishListIsInProgress = false;
+    update();
+
+    if (networkResponse.isSuccess) {
+      _wishListModel.data!
+          .removeWhere((product) => product.productId == productId);
       isSuccess = true;
     } else {
       _errorMessage = 'Product add to wishlist failed!';

@@ -308,7 +308,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 if (value == true) {
                   Get.snackbar(
                     'Success!',
-                    'Product added in wishlist',
+                    'Product added in wishlist.',
                     backgroundColor: Colors.green,
                   );
                 } else {
