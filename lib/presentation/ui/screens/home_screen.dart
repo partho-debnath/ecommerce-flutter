@@ -17,6 +17,7 @@ import '../widgets/home/home_slider.dart';
 import '../widgets/product.dart';
 import '../widgets/section_header.dart';
 import './product_list_screen.dart';
+import './auth/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -35,7 +36,9 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: <Widget>[
           CircularIconButton(
-            onTap: () {},
+            onTap: () {
+              Get.to(() => const ProfileScreen());
+            },
             icon: Icons.person_2_outlined,
           ),
           const SizedBox(width: 5),

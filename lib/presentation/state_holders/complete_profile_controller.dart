@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 
 import '../../data/models/network_response.dart';
-import '../../data/models/user_profile.dart';
+import '../../data/models/user_model.dart';
 import '../../data/services/network_caller.dart';
 import '../../data/utility/urls.dart';
 
 class CompleteProfileController extends GetxController {
-  User? user;
+  UserModel? user;
   bool _isCompleteProfileInProgress = false;
   get isCompleteProfileInProgress => _isCompleteProfileInProgress;
 
@@ -21,8 +21,7 @@ class CompleteProfileController extends GetxController {
     _isCompleteProfileInProgress = false;
     update();
     if (response.isSuccess) {
-      user = User.fromJson(response.responseJson!);
-      print(user!.data!.firstName);
+      user = UserModel.fromJson(response.responseJson!);
       update();
       return true;
     } else {

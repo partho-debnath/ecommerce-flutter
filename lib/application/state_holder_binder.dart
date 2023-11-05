@@ -16,6 +16,7 @@ import '../presentation/state_holders/product_slider_controller.dart';
 import '../presentation/state_holders/profile_controller.dart';
 import '../presentation/state_holders/review_controller.dart';
 import '../presentation/state_holders/special_product_controller.dart';
+import '../presentation/state_holders/update_profile_controller.dart';
 import '../presentation/state_holders/wish_list_controller.dart';
 
 class StateHolderBinder extends Bindings {
@@ -38,5 +39,6 @@ class StateHolderBinder extends Bindings {
     Get.put(ReviewController());
     Get.put(WishListController());
     Get.put(CreateInvoiceController());
+    Get.put(ReadOrUpdateProfileController());
   }
 }
