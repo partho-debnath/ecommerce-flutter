@@ -1,5 +1,5 @@
 # CraftyBay
-Crafty Bay is a user-friendly e-commerce mobile application designed to provide a seamless shopping experience. 
+CraftyBay is a user-friendly e-commerce app designed to provide a seamless shopping experience. 
 
 
 ## Usd Technology
@@ -45,13 +45,18 @@ Crafty Bay is a user-friendly e-commerce mobile application designed to provide 
 
 4. **Checkout**: ``Registered users can proceed to checkout.``
 
-
 5. **Payment Gateway**: ``Users can choose their preferred payment gateway to confirm their products.``
 
 6. **Ordering**: `` Only registered users can place orders for products.``
+
 7. **Product Reviews**: ``Registered users have the ability to add reviews for products.``
 
 8. **Visitor Access**: ``Non-registered users can only view the available products.``
+
+9. **Account Creation**: ``User can create account through email and OTP.``
+
+10. **Update Profile**: ``User can update their personal information and product shipping information.``
+
 
 # User Interface
 
@@ -111,3 +116,9 @@ Crafty Bay is a user-friendly e-commerce mobile application designed to provide 
 <img src="https://github.com/pd28CSE/ecommerce-flutter/assets/71305747/485ca377-8ceb-4bbb-92c2-55aeda002632" width="25%" height="25%">
 
 
+# APK File
+Link: [apk](https://www.google.com.bd/?gws_rd=ssl)
+
+
+# Application Demo Video
+Link: [apk](https://www.google.com.bd/?gws_rd=ssl)
