@@ -78,6 +78,7 @@ class _CraftBayState extends State<CraftBay> {
       title: 'CraftBay',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        brightness: Brightness.light,
         primarySwatch: MaterialColor(
           AppColor.primaryColor.value,
           AppColor().color,
@@ -103,6 +104,34 @@ class _CraftBayState extends State<CraftBay> {
           ),
         ),
       ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: MaterialColor(
+          AppColor.primaryColor.value,
+          AppColor().color,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            minimumSize: const Size.fromHeight(40),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            textStyle: const TextStyle(
+              fontSize: 16,
+              letterSpacing: 0.5,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ),
+      themeMode: ThemeMode.light,
       home: const SplashScreen(),
     );
   }

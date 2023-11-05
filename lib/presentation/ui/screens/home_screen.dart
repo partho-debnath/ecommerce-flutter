@@ -26,10 +26,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         title: SvgPicture.asset(
           ImageAssets.craftBayNavSVG,
           width: 120,
@@ -43,8 +42,11 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           CircularIconButton(
-            onTap: () {},
-            icon: Icons.call,
+            onTap: () {
+              Get.changeThemeMode(
+                  Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+            },
+            icon: Icons.wb_sunny_outlined,
           ),
           const SizedBox(width: 5),
           CircularIconButton(
