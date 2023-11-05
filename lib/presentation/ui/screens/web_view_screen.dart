@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -29,6 +32,20 @@ class _WebViewScreenState extends State<WebViewScreen> {
           onPageFinished: (String url) {},
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
+            Get.back();
+            if (request.url.endsWith('tran_type=success')) {
+              Get.snackbar(
+                'Success!',
+                'Profile update Successful.',
+                backgroundColor: Colors.green,
+              );
+            } else {
+              Get.snackbar(
+                'Failed!',
+                'Profile update Failed. Try again.',
+                backgroundColor: Colors.red,
+              );
+            }
             if (request.url.startsWith('https://www.youtube.com/')) {
               return NavigationDecision.prevent;
             }
