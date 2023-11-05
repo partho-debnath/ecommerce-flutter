@@ -36,13 +36,13 @@ class _WebViewScreenState extends State<WebViewScreen> {
             if (request.url.endsWith('tran_type=success')) {
               Get.snackbar(
                 'Success!',
-                'Profile update Successful.',
+                'Payment Successful.',
                 backgroundColor: Colors.green,
               );
             } else {
               Get.snackbar(
                 'Failed!',
-                'Profile update Failed. Try again.',
+                'Payment Failed. Try again.',
                 backgroundColor: Colors.red,
               );
             }

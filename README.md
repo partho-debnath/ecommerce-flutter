@@ -2,14 +2,21 @@
 
 ## Project Structure
 
+```bash
 .
 └── ecommerce/
     └── lib/
         ├── application
-        ├── data
+        ├── data/
+        │   ├── models
+        │   ├── services
+        │   └── utility
         └── presentation/
             ├── state_holders
             └── ui/
-                ├── screens
-                ├── widgets
-                └── utility
+                ├── screens/
+                │   └── auth
+                ├── utility
+                └── widgets/
+                    └── home
+```
