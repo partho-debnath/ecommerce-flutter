@@ -117,8 +117,8 @@ CraftyBay is a user-friendly e-commerce app designed to provide a seamless shopp
 
 
 # APK File
-Link: [apk](https://www.google.com.bd/?gws_rd=ssl)
+Link: [Download APK File](https://drive.google.com/file/d/14n4jp1QjxAcS3XQORzlPvNyRSHoBtCfO/view?usp=sharing)
 
 
 # Application Demo Video
-Link: [apk](https://www.google.com.bd/?gws_rd=ssl)
+Link: [App Video](https://drive.google.com/file/d/1bfrMXREZ3rYlsDuvLSGK_s687VyiQBgV/view?usp=sharing)
