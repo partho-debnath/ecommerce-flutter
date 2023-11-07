@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../state_holders/auth_controller.dart';
 import '../../state_holders/category_controller.dart';
 import '../../state_holders/main_bottom_nav_controller.dart';
 import '../../state_holders/new_product_controller.dart';
@@ -50,8 +53,39 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           CircularIconButton(
-            onTap: () {},
-            icon: Icons.notifications_active,
+            onTap: () {
+              Get.bottomSheet<bool>(
+                isDismissible: false,
+                AlertDialog(
+                  title: const Text('Are you sure?'),
+                  content: const Text('Are you want to Logout?'),
+                  actions: [
+                    OutlinedButton(
+                      onPressed: () {
+                        Get.back(result: false);
+                      },
+                      child: const Text('NO'),
+                    ),
+                    OutlinedButton(
+                      onPressed: () {
+                        Get.back(result: true);
+                      },
+                      child: const Text('YES'),
+                    ),
+                  ],
+                ),
+              ).then((value) async {
+                if (value == true) {
+                  await AuthController.clearUserInfo();
+                  Get.snackbar(
+                    'Success!',
+                    'Logout successful.',
+                    backgroundColor: Colors.green,
+                  );
+                }
+              });
+            },
+            icon: Icons.logout_outlined,
           ),
         ],
       ),
