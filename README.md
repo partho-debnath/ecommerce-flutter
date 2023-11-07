@@ -61,8 +61,8 @@ CraftyBay is a user-friendly e-commerce app designed to provide a seamless shopp
 # User Interface
 
 ### Home Screen
-<img src="https://github.com/pd28CSE/ecommerce-flutter/assets/71305747/9c676f75-9053-4e7c-a3b5-01b189f781a7" width="25%" height="25%">
-<img src="https://github.com/pd28CSE/ecommerce-flutter/assets/71305747/839d9862-8642-4305-a4ca-d6325bbffeb0" width="25%" height="25%">
+<img src="https://github.com/pd28CSE/ecommerce-flutter/assets/71305747/8061f442-e4ea-43d0-b3d8-aa467cd49f5f" width="25%" height="25%">
+<img src="https://github.com/pd28CSE/ecommerce-flutter/assets/71305747/e40245c7-04a6-4f74-8ca1-9fa8ebb97c4b" width="25%" height="25%">
 
 ### Category Screen
 <img src="https://github.com/pd28CSE/ecommerce-flutter/assets/71305747/0bca6aca-818b-4e22-ba43-35d65d7412ac" width="25%" height="25%">
@@ -99,7 +99,7 @@ CraftyBay is a user-friendly e-commerce app designed to provide a seamless shopp
 <img src="https://github.com/pd28CSE/ecommerce-flutter/assets/71305747/febb56b3-e6cb-49b6-9380-d86482480923" width="25%" height="25%">
 
 ### Dark Theme View
-<img src="https://github.com/pd28CSE/ecommerce-flutter/assets/71305747/d2d6929a-049e-441e-b20c-f491683862ba" width="25%" height="25%">
+<img src="https://github.com/pd28CSE/ecommerce-flutter/assets/71305747/62baf505-1c10-4678-affa-2a7422ab8bf1" width="25%" height="25%">
 <img src="https://github.com/pd28CSE/ecommerce-flutter/assets/71305747/cd481979-5f3a-4c9b-b2d5-827cc9694349" width="25%" height="25%">
 
 ### Account Create and OTP Verification Screen
@@ -114,6 +114,10 @@ CraftyBay is a user-friendly e-commerce app designed to provide a seamless shopp
 ### Profile Update Screen
 <img src="https://github.com/pd28CSE/ecommerce-flutter/assets/71305747/0764a2a1-73b8-4832-ba30-57481bb9873f" width="25%" height="25%">
 <img src="https://github.com/pd28CSE/ecommerce-flutter/assets/71305747/485ca377-8ceb-4bbb-92c2-55aeda002632" width="25%" height="25%">
+
+### Logout Screen
+<img src="https://github.com/pd28CSE/ecommerce-flutter/assets/71305747/b10b44f6-cf1e-4599-8b4b-755a232929dd" width="25%" height="25%">
+<img src="https://github.com/pd28CSE/ecommerce-flutter/assets/71305747/6a55cfd4-41de-463e-9786-3a4698a11d3d" width="25%" height="25%">
 
 
 # APK File
